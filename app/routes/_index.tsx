@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import Header from "~/components/common/header";
+import Header from "~/components/common/header/header";
 
 export const meta: MetaFunction = () => {
   return [
@@ -12,6 +12,7 @@ export default function Index() {
   return (
     <>
       <Header />
+      <main></main>
     </>
   );
 }
