@@ -37,7 +37,7 @@ export default function Header() {
           <div className="flex flex-row-reverse gap-6 items-center">
             <ButtonLink text="Download" link="/download" />
             <Link
-              className="flex font-bold text-lg items-center text-neutral-800 text-opacity-60 hover:text-opacity-75 cursor-pointer px-2 py-0.5 transition-all ease-linear duration-200"
+              className="flex font-bold text-lg items-center text-neutral-800 text-opacity-70 hover:text-opacity-100 hover:text-neutral-700 cursor-pointer px-2 py-0.5 transition-all ease-linear duration-200"
               to="/Login"
             >
               Login
@@ -49,9 +49,9 @@ export default function Header() {
             />
 
             <div className="flex gap-2">
-              <MdNightsStay className="w-7 h-7 p-1 text-neutral-800 text-opacity-60 hover:text-opacity-75 transition-all ease-linear cursor-pointer duration-200" />
+              <MdNightsStay className="w-7 h-7 p-1 text-neutral-800 text-opacity-70 hover:text-opacity-100 hover:text-neutral-700 transition-all ease-linear cursor-pointer duration-200" />
               <GrLanguage
-                className="w-7 h-7 p-1 text-neutral-800 text-opacity-60 hover:text-opacity-75 transition-all ease-linear cursor-pointer duration-200"
+                className="w-7 h-7 p-1 text-neutral-800 text-opacity-70 hover:text-opacity-100 hover:text-neutral-700 transition-all ease-linear cursor-pointer duration-200"
                 strokeWidth={20}
               />
             </div>
