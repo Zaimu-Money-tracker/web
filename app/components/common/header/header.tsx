@@ -8,7 +8,7 @@ import { Link } from "@remix-run/react";
 export default function Header() {
   return (
     <header>
-      <div className="flex bg-[#c2c2c2] bg-opacity-50 py-2 px-8 mx-[10%] mt-6 rounded-2xl items-center">
+      <div className="flex bg-[#d4d4d4] bg-opacity-65 py-2 px-8 mx-[10%] mt-6 rounded-2xl items-center">
         <nav className="w-full flex justify-between">
           <div className="flex gap-10">
             <Link
@@ -17,7 +17,7 @@ export default function Header() {
               aria-label="Zaimu Main Page"
             >
               <img
-                className="w-8 aspect-square"
+                className="w-8 aspect-auto"
                 src="/icons/zaimu_black_logo.webp"
                 alt="Zaimu Logo in dark"
               />
@@ -37,7 +37,7 @@ export default function Header() {
           <div className="flex flex-row-reverse gap-6 items-center">
             <ButtonLink text="Download" link="/download" />
             <Link
-              className="flex font-bold text-lg items-center text-black text-opacity-50 hover:text-opacity-65  cursor-pointer px-2 py-0.5 transition-all ease-linear duration-200"
+              className="flex font-bold text-lg items-center text-neutral-800 text-opacity-60 hover:text-opacity-75 cursor-pointer px-2 py-0.5 transition-all ease-linear duration-200"
               to="/Login"
             >
               Login
@@ -48,13 +48,13 @@ export default function Header() {
               role="separator"
             />
 
-            <ul className="flex gap-2">
-              <MdNightsStay className="w-7 h-7 p-1 text-neutral-500 hover:text-neutral-600 transition-all ease-linear cursor-pointer duration-200" />
+            <div className="flex gap-2">
+              <MdNightsStay className="w-7 h-7 p-1 text-neutral-800 text-opacity-60 hover:text-opacity-75 transition-all ease-linear cursor-pointer duration-200" />
               <GrLanguage
-                className="w-7 h-7 p-1 text-neutral-500 hover:text-neutral-600 transition-all ease-linear cursor-pointer duration-200"
+                className="w-7 h-7 p-1 text-neutral-800 text-opacity-60 hover:text-opacity-75 transition-all ease-linear cursor-pointer duration-200"
                 strokeWidth={20}
               />
-            </ul>
+            </div>
           </div>
         </nav>
       </div>
