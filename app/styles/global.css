@@ -16,6 +16,6 @@ html {
 }
 
 .default-button {
-  background: rgb(255, 141, 53);
+  background: #ff8d35;
   background: linear-gradient(90deg, #ff8d35 0%, #ffca35 100%);
 }

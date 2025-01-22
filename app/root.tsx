@@ -17,6 +17,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="robots" content="index, follow" />
+        <meta name="theme-color" content="#ff8d35" />
+
+        <link
+          rel="shortcut icon"
+          href="/icons/zaimu_black_logo.webp"
+          type="image/x-icon"
+        />
+
         <Meta />
         <Links />
       </head>

@@ -1,3 +1,5 @@
+import { Link } from "@remix-run/react";
+
 export default function HeaderLink({
   text,
   link,
@@ -7,12 +9,12 @@ export default function HeaderLink({
 }) {
   return (
     <li className="flex text-lg items-center">
-      <a
-        className="text-black text-opacity-50 hover:text-opacity-65  cursor-pointer px-2 py-0.5 transition-all ease-linear duration-200"
-        href={link}
+      <Link
+        className="text-black font-bold text-opacity-50 hover:text-opacity-65  cursor-pointer px-2 py-0.5 transition-all ease-linear duration-200"
+        to={link}
       >
-        <span className="font-bold">{text}</span>
-      </a>
+        {text}
+      </Link>
     </li>
   );
 }
