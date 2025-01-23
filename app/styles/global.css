@@ -18,7 +18,7 @@ html {
   @apply bg-neutral-50 font-['GLory'];
 }
 
-.default-button {
+/* .default-button {
   background: #ff8d35;
   background: linear-gradient(90deg, #ff8d35 0%, #ffca35 100%);
-}
+} */

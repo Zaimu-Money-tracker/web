@@ -15,11 +15,11 @@ export default function ddButton({
   return (
     <li className="flex text-neutral-700 text-base font-bold">
       <Link
-        className="flex group gap-3 items-center w-full p-2 rounded-xl hover:bg-primary/15 transition-all ease-linear duration-200"
+        className="flex group/item gap-3 items-center w-full p-2 rounded-xl hover:bg-primary/15 transition-all ease-linear duration-200"
         to={link}
       >
         {icon ? (
-          <div className="flex p-1 items-center justify-center group-hover:text-primary/80 group-hover:bg-primary/20 group-hover:border-primary/40 rounded-md bg-neutral-300/20 text-neutral-500/90 border-2 border-neutral-400/60 transition-all ease-linear duration-200">
+          <div className="flex p-1 items-center justify-center group-hover/item:text-primary group-hover/item:bg-primary/20 group-hover/item:border-primary/60 rounded-md bg-neutral-300/20 text-neutral-500/90 border-2 border-neutral-400/60 transition-all ease-linear duration-200">
             {icon}
           </div>
         ) : (

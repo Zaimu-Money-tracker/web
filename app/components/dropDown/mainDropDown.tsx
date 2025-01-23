@@ -1,4 +1,4 @@
-import { LuGoal, LuLayoutDashboard } from "react-icons/lu";
+import { LuAward, LuGoal, LuLayoutDashboard } from "react-icons/lu";
 import DropDownButton from "../buttons/dropDownButton";
 import { TbPigMoney } from "react-icons/tb";
 import { TiFlashOutline } from "react-icons/ti";
@@ -29,7 +29,7 @@ export default function MainDropDown() {
         text="Achievements"
         description="Save money, get achievements."
         link="/features/achievements"
-        icon={<LuLayoutDashboard className="w-6 h-6" />}
+        icon={<LuAward className="w-6 h-6" />}
       />
       <DropDownButton
         text="Goals"

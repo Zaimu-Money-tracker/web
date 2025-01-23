@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
 import { IoIosArrowForward } from "react-icons/io";
 
+// TODO: Conditional render to show dropdown
+
 export default function HeaderDrop({
   text,
   dropDown,
@@ -16,10 +18,10 @@ export default function HeaderDrop({
           className="w-4 h-4 group-hover:rotate-90 transition-all ease-easeOutExpo duration-200"
           strokeWidth={20}
         />
+        <div className="absolute w-max flex p-2 bg-neutral-200/60 -left-4 top-[60px] rounded-2xl border-2 border-neutral-200 cursor-default">
+          {dropDown}
+        </div>
       </li>
-      <div className="absolute w-max flex p-2 bg-neutral-200/60 -left-4 top-[60px] rounded-2xl border-2 border-neutral-200">
-        {dropDown}
-      </div>
     </>
   );
 }
