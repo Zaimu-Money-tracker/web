@@ -5,11 +5,13 @@ import { GrLanguage } from "react-icons/gr";
 import { MdNightsStay } from "react-icons/md";
 import { Link } from "@remix-run/react";
 import MainDropDown from "../../dropDown/mainDropDown";
+import BigDropDown from "~/components/dropDown/bigDropDown";
+import MiniDropDown from "~/components/dropDown/miniDropDown";
 
 export default function Header() {
   return (
     <header>
-      <div className="flex bg-[#d4d4d4]/65 py-2 px-8 mx-[10%] mt-3 rounded-2xl items-center">
+      <div className="flex bg-gray-1/65 py-2 px-8 mx-[10%] mt-3 rounded-2xl items-center">
         <nav className="w-full flex justify-between">
           <div className="flex gap-10">
             <Link
@@ -30,9 +32,17 @@ export default function Header() {
             </Link>
 
             <ul className="flex gap-6 items-center relative">
-              <HeaderDrop text="Features" dropDown={<MainDropDown />} />
-              {/* <HeaderDrop text="Start saving" />
-              <HeaderDrop text="Others" /> */}
+              <HeaderDrop
+                text="Features"
+                dropDown={<MainDropDown />}
+                index={1}
+              />
+              <HeaderDrop
+                text="Start saving"
+                dropDown={<BigDropDown />}
+                index={2}
+              />
+              <HeaderDrop text="Others" dropDown={<MiniDropDown />} index={3} />
               <HeaderLink text="Pricing" link="/pricing" />
             </ul>
           </div>

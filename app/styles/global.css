@@ -9,16 +9,23 @@
 }
 
 @theme {
+  /* Fonts */
+  --font-glory: "GLory", "sans-serif";
+
+  /* Colors */
   --color-primary: #ff8d35;
   --color-secondary: #ffca35;
+  --color-gray-1: #d4d4d4;
+
+  /* Shadows */
+  --shadow-primary: 0px 2px 20px #ff8d35;
 }
 
 body,
 html {
-  @apply bg-neutral-50 font-['GLory'];
+  @apply bg-neutral-50 font-glory;
 }
 
-/* .default-button {
-  background: #ff8d35;
-  background: linear-gradient(90deg, #ff8d35 0%, #ffca35 100%);
-} */
+.drop-down::after {
+  @apply content-[''] bg-transparent absolute top-[-30px] h-[30px];
+}
