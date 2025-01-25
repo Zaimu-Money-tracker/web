@@ -3,20 +3,26 @@ import { motion } from "motion/react";
 export default function IconLinkButton({
   link,
   icon,
+  ariaLabel,
 }: {
   link: string;
   icon: React.ReactNode;
+  ariaLabel: string;
 }) {
   return (
-    <motion.a
+    <motion.li
       className="hover:text-primary "
-      href={link}
-      target="_blank"
-      rel="noopener noreferrer"
       whileHover={{ scale: 1.2 }}
       transition={{ scale: { type: "spring", bounce: 0.7 } }}
     >
-      {icon}
-    </motion.a>
+      <a
+        href={link}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={ariaLabel}
+      >
+        {icon}
+      </a>
+    </motion.li>
   );
 }

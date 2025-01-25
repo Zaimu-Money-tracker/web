@@ -41,6 +41,7 @@ export default function Footer() {
               <IconLinkButton
                 link="https://github.com/Zaimu-Money-tracker"
                 icon={<FaGithub className="w-8 h-8 text-neutral-700" />}
+                ariaLabel="Zaimu's GitHub Organization Link"
               />
             </ul>
           </div>
