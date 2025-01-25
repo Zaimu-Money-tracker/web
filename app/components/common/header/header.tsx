@@ -7,6 +7,7 @@ import { Link } from "@remix-run/react";
 import MainDropDown from "../../dropDown/mainDropDown";
 import BigDropDown from "~/components/dropDown/bigDropDown";
 import MiniDropDown from "~/components/dropDown/miniDropDown";
+import { path } from "~/data/paths/paths";
 
 export default function Header() {
   return (
@@ -24,7 +25,7 @@ export default function Header() {
                 height={32}
                 className="aspect-auto"
                 src="/icons/zaimu_black_logo.webp"
-                alt="Zaimu Logo in dark"
+                alt="Zaimu Logo in Dark"
               />
               <span className="text-neutral-700 font-black text-2xl">
                 Zaimu
@@ -43,12 +44,12 @@ export default function Header() {
                 index={2}
               />
               <HeaderDrop text="Others" dropDown={<MiniDropDown />} index={3} />
-              <HeaderLink text="Pricing" link="/pricing" />
+              <HeaderLink text="Pricing" link={path.pricing} />
             </ul>
           </div>
 
           <div className="flex flex-row-reverse gap-6 items-center">
-            <ButtonLink text="Download" link="/download" />
+            <ButtonLink text="Download" link={path.download} />
             <Link
               className="flex font-bold text-lg items-center text-neutral-800/70 hover:text-neutral-700/100 cursor-pointer px-2 py-0.5 transition-all ease-linear duration-200"
               to="/Login"

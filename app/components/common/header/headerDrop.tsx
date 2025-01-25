@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import { IoIosArrowForward } from "react-icons/io";
 import { AnimatePresence, motion } from "motion/react";
 
@@ -8,7 +8,7 @@ export default function HeaderDrop({
   index,
 }: {
   text: string;
-  dropDown: ReactNode;
+  dropDown: React.ReactNode;
   index: number;
 }) {
   const [visible, setVisible] = useState<boolean>(false);
@@ -35,10 +35,10 @@ export default function HeaderDrop({
                   ? "after:left-[23%] after:w-[25%]"
                   : "after:left-[60%] after:w-[40%] left-24"
               } absolute w-max flex p-2 bg-neutral-200/60 drop-down -left-4 top-[0px] mt-16 rounded-2xl border-2 border-neutral-200 cursor-default`}
-              initial={{ opacity: 0, scale: 0.9, pointerEvents: "all" }}
+              initial={{ opacity: 0, scale: 0.8, pointerEvents: "all" }}
               animate={{ opacity: 1, scale: 1, pointerEvents: "all" }}
-              exit={{ opacity: 0, scale: 0.9, pointerEvents: "none" }}
-              transition={{ duration: 0.2, ease: [0.34, 1.56, 0.64, 1] }}
+              exit={{ opacity: 0, scale: 0.8, pointerEvents: "none" }}
+              transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
               onMouseEnter={() => setVisible(true)}
             >
               {dropDown}

@@ -16,6 +16,7 @@
   --color-primary: #ff8d35;
   --color-secondary: #ffca35;
   --color-gray-1: #d4d4d4;
+  --color-gray-2: #f0f0f0;
 
   /* Shadows */
   --shadow-primary: 0px 2px 20px #ff8d35;
@@ -24,6 +25,12 @@
 body,
 html {
   @apply bg-neutral-50 font-glory;
+}
+
+#mainContainer {
+  @apply grid min-h-dvh;
+
+  grid-template-rows: auto 1fr auto;
 }
 
 .drop-down::after {

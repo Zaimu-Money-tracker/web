@@ -1,5 +1,4 @@
 import { Link } from "@remix-run/react";
-import { ReactNode } from "react";
 
 export default function DropDownButton({
   text,
@@ -12,9 +11,9 @@ export default function DropDownButton({
   text: string;
   description: string;
   link: string;
-  icon?: ReactNode;
+  icon?: React.ReactNode;
   blank?: boolean;
-  titleIcon?: ReactNode;
+  titleIcon?: React.ReactNode;
 }) {
   const Body = () => {
     return (
@@ -49,7 +48,7 @@ export default function DropDownButton({
         <Link
           className="flex group/item gap-1 items-center w-full p-2 rounded-xl hover:bg-primary/15 transition-all ease-linear duration-200"
           to={link}
-          rel="noreferrer"
+          rel="noopener noreferrer"
           target="_blank"
         >
           {<Body />}

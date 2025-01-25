@@ -21,10 +21,26 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="theme-color" content="#ff8d35" />
 
         <link
+          id="favicon"
           rel="shortcut icon"
-          href="/icons/zaimu_black_logo.webp"
-          type="image/x-icon"
+          href="/favicon-white.ico"
+          media="(prefers-color-scheme: no-preference)"
+          type="image/ico"
         />
+        <link
+          rel="shortcut icon"
+          href="/favicon-white.ico"
+          media="(prefers-color-scheme: dark)"
+          type="image/ico"
+        />
+        <link
+          rel="shortcut icon"
+          href="/favicon-black.ico"
+          media="(prefers-color-scheme: light)"
+          type="image/ico"
+        />
+
+        <script></script>
 
         <Meta />
         <Links />

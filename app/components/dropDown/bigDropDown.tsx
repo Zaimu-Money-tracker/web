@@ -1,3 +1,4 @@
+import { path } from "~/data/paths/paths";
 import BigDropDownButton from "../buttons/bigDropDownButton";
 import DropDownButton from "../buttons/dropDownButton";
 
@@ -8,7 +9,7 @@ export default function BigDropDown() {
         <BigDropDownButton
           text="A step closer"
           description="Create an account and start tracking your money"
-          link="/register"
+          link={path.register}
           btnText="Register"
         />
       </div>
@@ -17,12 +18,12 @@ export default function BigDropDown() {
         <DropDownButton
           text="How to use"
           description="Learn how to use Zaimu and start tracking your money."
-          link=""
+          link={path.docs}
         />
         <DropDownButton
           text="Upgrade plan"
           description="Zaimu's free, but you can choose a plan and share it with your family."
-          link=""
+          link={path.pricing}
         />
       </ul>
     </div>
