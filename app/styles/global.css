@@ -15,11 +15,14 @@
   /* Colors */
   --color-primary: #ff8d35;
   --color-secondary: #ffca35;
+  --color-primary-darker: #eb7216;
   --color-gray-1: #d4d4d4;
   --color-gray-2: #f0f0f0;
 
   /* Shadows */
-  --shadow-primary: 0px 2px 20px #ff8d35;
+  --shadow-primary: 0px 0px 20px 2px #ff8d35;
+  --shadow-secondary: 0px 0px 20px 2px #ffca35;
+  --shadow-gray-1: 0px 0px 30px 2px #d4d4d48c;
 }
 
 body,

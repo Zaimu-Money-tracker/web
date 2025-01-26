@@ -22,7 +22,7 @@ export default function Footer() {
                   <img
                     width={35}
                     height={35}
-                    className="aspect-square"
+                    className="aspect-auto"
                     src="/icons/zaimu_default_logo.webp"
                     alt="Main Zaimu Logo"
                     loading="lazy"
