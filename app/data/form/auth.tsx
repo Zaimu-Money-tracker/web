@@ -1,3 +1,4 @@
+import DateInput from "~/components/form/dateInput";
 import Input from "~/components/form/input";
 
 export const registerFirst = [
@@ -10,7 +11,7 @@ export const registerFirst = [
 
   <div className="flex gap-3" key={""}>
     <Input placeholder="Currency" type="text" />
-    <Input placeholder="Birth date" type="date" />
+    <DateInput placeholder="Birth date" />
   </div>,
 
   <Input key={""} placeholder="Password" type="password" />,
@@ -30,6 +31,7 @@ export const registerThird = [
     <Input placeholder="Language" type="text" />
     <Input placeholder="Theme" type="text" />
   </div>,
+  <Input key={""} placeholder="Phone" type="tel" />,
 ];
 
 export const login = [

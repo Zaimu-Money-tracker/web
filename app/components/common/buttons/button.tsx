@@ -3,9 +3,11 @@ import { motion } from "motion/react";
 export default function Button({
   text,
   type,
+  buttonAction,
 }: {
   text: string;
-  type: "button" | "submit" | "reset";
+  type?: "button" | "submit" | "reset";
+  buttonAction?: () => void;
 }) {
   return (
     <motion.button
@@ -16,6 +18,7 @@ export default function Button({
       }}
       whileTap={{ scale: 0.95 }}
       transition={{ duration: 0.4, ease: [0.34, 1.56, 0.64, 1] }}
+      onClick={buttonAction}
     >
       {text}
     </motion.button>

@@ -9,7 +9,7 @@ export default function BasicLink({
 }) {
   return (
     <Link
-      className="text-primary font-semibold italic hover:text-primary-darker transition-all ease-in-out duration-200"
+      className="text-primary-darker font-semibold italic hover:text-primary transition-all ease-in-out duration-200"
       to={link}
     >
       {text}

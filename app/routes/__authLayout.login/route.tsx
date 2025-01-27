@@ -1,25 +1,40 @@
 import BasicLink from "~/components/common/links/basicLink";
-import FormCard from "~/components/form/formCard";
-import { login } from "~/data/form/auth";
+import LoginForm from "~/components/form/loginForm";
 import { path } from "~/data/paths/paths";
+import type { MetaFunction } from "@remix-run/node";
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Zaimu" },
+    {
+      name: "description",
+      content:
+        "Zaimu is the easiest way to track your money, take control of your finances and save to achieve your dreams.",
+    },
+    { property: "og:url", content: "https://zaimu-finance.pages.dev/" },
+    { property: "og:type", content: "website" },
+    { property: "og:tittle", content: "Zaimu - Manage your Money" },
+    { property: "og:site_name", content: "Zaimu" },
+    {
+      property: "og:description",
+      content:
+        "Zaimu is the easiest way to track your money, take control of your finances and save to achieve your dreams.",
+    },
+    { name: "twitter:card", content: "summary_large_image" },
+    { property: "twitter:url", content: "https://zaimu-finance.pages.dev/" },
+    { name: "twitter:title", content: "Zaimu - Manage your Money" },
+    {
+      name: "twitter:description",
+      content:
+        "Zaimu is the easiest way to track your money, take control of your finances and save to achieve your dreams.",
+    },
+  ];
+};
 
 export default function Login() {
   return (
     <section className="flex flex-col justify-between w-6/10 items-center py-10">
-      <div className="flex gap-1.5 w-1/2 items-center">
-        <div className="flex min-w-2.5 h-2.5 rounded-full bg-primary" />
-        <div className="bg-linear-to-r h-0.75 rounded-full w-full from-primary to-secondary" />
-        <div className="flex min-w-2.5 h-2.5 rounded-full bg-transparent border-2 border-secondary" />
-      </div>
-
-      <FormCard
-        title="Good to see you again!"
-        description=""
-        footer={false}
-        buttonText="Login"
-        inputs={login}
-        checkBox={{ render: true, text: "Remember me" }}
-      />
+      <LoginForm />
 
       <p className="text-neutral-500">
         Don&apos;t have an account yet?{" "}

@@ -40,8 +40,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
           type="image/ico"
         />
 
-        <script></script>
-
         <Meta />
         <Links />
       </head>

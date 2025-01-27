@@ -1,13 +1,7 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 
-export default function Input({
-  placeholder,
-  type,
-}: {
-  placeholder: string;
-  type: string;
-}) {
+export default function DateInput({ placeholder }: { placeholder: string }) {
   const [selected, setSelected] = useState<boolean>(false);
   const [value, setValue] = useState<string>("");
 
@@ -32,6 +26,7 @@ export default function Input({
                 left: "-0.5rem",
                 fontSize: "0.875rem",
                 cursor: "default",
+                opacity: 1,
               }
             : {
                 top: 0,
@@ -40,6 +35,7 @@ export default function Input({
                 paddingTop: "0.75rem",
                 paddingBottom: "0.75rem",
                 cursor: "text",
+                opacity: 0,
               }
         }
         transition={{ type: "spring", stiffness: 300, damping: 16 }}
@@ -48,8 +44,8 @@ export default function Input({
         {placeholder}
       </motion.span>
       <input
-        className="border-2 border-neutral-200 rounded-xl py-2 px-3 text-lg w-full outline-none focus:border-primary transition-all ease-in-out duration-200"
-        type={type}
+        className="border-2 text-neutral-500 font-medium border-neutral-200 rounded-xl py-2 px-3 text-lg w-full outline-none focus:border-primary transition-all ease-in-out duration-200"
+        type="date"
         onChange={(e) => setValue(e.target.value)}
       />
     </label>

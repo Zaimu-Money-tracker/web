@@ -6,7 +6,7 @@ export default function Checkbox({ checked }: { checked: boolean }) {
       <motion.div
         className="w-4 h-4 rounded-full bg-white"
         animate={checked ? { translateX: "1.125rem" } : { translateX: 0 }}
-        transition={{ type: "spring", stiffness: 300, damping: 10 }}
+        transition={{ type: "spring", duration: 0.5, bounce: 0.5 }}
       />
     </div>
   );
