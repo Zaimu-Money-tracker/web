@@ -20,7 +20,7 @@ export default function FormCard({
   buttonType?: "button" | "submit" | "reset";
   buttonAction?: () => void;
   inputs: React.ReactNode[];
-  checkBox: { render: boolean; text: string };
+  checkBox: { render: boolean; text: string; name: string };
 }) {
   return (
     <article className="grid gap-6 p-8 items-center bg-white border-2 border-neutral-200 rounded-4xl shadow-gray-1 w-full max-w-[34rem]">
@@ -41,7 +41,11 @@ export default function FormCard({
             })}
           </div>
 
-          {checkBox.render ? <CheckboxInput text={checkBox.text} /> : <></>}
+          {checkBox.render ? (
+            <CheckboxInput text={checkBox.text} name={checkBox.name} />
+          ) : (
+            <></>
+          )}
         </div>
       </fieldset>
       <Button text={buttonText} type={buttonType} buttonAction={buttonAction} />

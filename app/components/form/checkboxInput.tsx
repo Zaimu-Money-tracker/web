@@ -1,7 +1,13 @@
 import { useState } from "react";
 import Checkbox from "./checkbox";
 
-export default function CheckboxInput({ text }: { text: string }) {
+export default function CheckboxInput({
+  text,
+  name,
+}: {
+  text: string;
+  name: string;
+}) {
   const [checked, setChecked] = useState<boolean>(false);
 
   return (
@@ -9,6 +15,7 @@ export default function CheckboxInput({ text }: { text: string }) {
       <input
         className="peer hidden"
         type="checkbox"
+        name={name}
         onChange={(e) => setChecked(e.target.checked)}
       />
       <Checkbox checked={checked} />

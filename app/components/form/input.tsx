@@ -4,12 +4,16 @@ import { motion } from "motion/react";
 export default function Input({
   placeholder,
   type,
+  name,
+  defaultValue,
 }: {
   placeholder: string;
   type: string;
+  name: string;
+  defaultValue?: string;
 }) {
-  const [selected, setSelected] = useState<boolean>(false);
-  const [value, setValue] = useState<string>("");
+  const [selected, setSelected] = useState<boolean>(!!defaultValue);
+  const [value, setValue] = useState<string>(defaultValue || "");
 
   const canDeselect = () => {
     if (value.trim() === "") setSelected(false);
@@ -50,6 +54,8 @@ export default function Input({
       <input
         className="border-2 border-neutral-200 rounded-xl py-2 px-3 text-lg w-full outline-none focus:border-primary transition-all ease-in-out duration-200"
         type={type}
+        name={name}
+        defaultValue={defaultValue}
         onChange={(e) => setValue(e.target.value)}
       />
     </label>
