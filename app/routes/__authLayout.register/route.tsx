@@ -1,6 +1,6 @@
 import BasicLink from "~/components/common/links/basicLink";
 import RegisterForm from "~/components/form/registerForm";
-import { path } from "~/data/paths/paths";
+import { path } from "~/data/paths/paths.data";
 import type { MetaFunction } from "@remix-run/node";
 
 export const meta: MetaFunction = () => {

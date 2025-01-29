@@ -2,12 +2,12 @@ import {
   resourcesLinks,
   supportLinks,
   zaimuLinks,
-} from "~/data/footer/basicLinks";
+} from "~/data/footer/basicLinks.data";
 import FooterSection from "./footerSection";
 import { Link } from "@remix-run/react";
 import FooterLink from "./footerLink";
 import { FaGithub } from "react-icons/fa";
-import { path } from "~/data/paths/paths";
+import { path } from "~/data/paths/paths.data";
 import IconLinkButton from "../buttons/iconLinkButton";
 
 export default function Footer() {

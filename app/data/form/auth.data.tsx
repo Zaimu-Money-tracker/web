@@ -3,11 +3,17 @@ import Input from "~/components/form/input";
 
 export const registerFirst = [
   <div className="flex gap-3" key={"name-inputs"}>
-    <Input placeholder="First name" type="text" name="firstName" />
-    <Input placeholder="Last name" type="text" name="lastName" />
+    <Input placeholder="First name" type="text" name="firstName" required />
+    <Input placeholder="Last name" type="text" name="lastName" required />
   </div>,
 
-  <Input key={"email-input"} placeholder="Email" type="email" name="email" />,
+  <Input
+    key={"email-input"}
+    placeholder="Email"
+    type="email"
+    name="email"
+    required
+  />,
 
   <div className="flex gap-3" key={"currency-data-inputs"}>
     <Input
@@ -15,8 +21,9 @@ export const registerFirst = [
       type="text"
       name="currency"
       defaultValue="COP"
+      required
     />
-    <DateInput placeholder="Birth date" name="date" />
+    <DateInput placeholder="Birth date" name="date" required />
   </div>,
 
   <Input
@@ -24,13 +31,14 @@ export const registerFirst = [
     placeholder="Password"
     type="password"
     name="password"
+    required
   />,
 ];
 
 export const registerSecond = [
   <div className="flex gap-3" key={"user-profession-inputs"}>
-    <Input placeholder="User name" type="text" name="userName" />
-    <Input placeholder="Profession" type="text" name="profession" />
+    <Input placeholder="User name" type="text" name="userName" required />
+    <Input placeholder="Profession (Optional)" type="text" name="profession" />
   </div>,
 
   <Input
@@ -38,7 +46,7 @@ export const registerSecond = [
     placeholder="Gender"
     type="text"
     name="gender"
-    defaultValue="Male"
+    required
   />,
 ];
 
@@ -49,19 +57,38 @@ export const registerThird = [
       type="text"
       name="language"
       defaultValue="es"
+      required
     />
-    <Input placeholder="Theme" type="text" name="theme" defaultValue="dark" />
+    <Input
+      placeholder="Theme"
+      type="text"
+      name="theme"
+      defaultValue="dark"
+      required
+    />
   </div>,
 
-  <Input key={"phone-input"} placeholder="Phone" type="tel" name="phone" />,
+  <Input
+    key={"phone-input"}
+    placeholder="Phone (Optional)"
+    type="tel"
+    name="phone"
+  />,
 ];
 
 export const login = [
-  <Input key={"email1-input"} placeholder="Email" type="email" name="email" />,
+  <Input
+    key={"email1-input"}
+    placeholder="Email"
+    type="email"
+    name="email"
+    required
+  />,
   <Input
     key={"password2-input"}
     placeholder="Password"
     type="password"
-    name="name"
+    name="password"
+    required
   />,
 ];

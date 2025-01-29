@@ -1,5 +1,5 @@
-import BasicLink from "~/interfaces/footer/basicLink";
-import { path } from "../paths/paths";
+import BasicLink from "~/interfaces/footer/basicLink.interface";
+import { path } from "../paths/paths.data";
 
 export const zaimuLinks: BasicLink[] = [
   {

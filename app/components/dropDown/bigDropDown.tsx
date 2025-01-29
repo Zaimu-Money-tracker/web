@@ -1,4 +1,4 @@
-import { path } from "~/data/paths/paths";
+import { path } from "~/data/paths/paths.data";
 import BigDropDownButton from "../buttons/bigDropDownButton";
 import DropDownButton from "../buttons/dropDownButton";
 

@@ -9,6 +9,7 @@ export default interface Paths {
     shortcuts: string;
     recurring: string;
   };
+  app: { main: string };
   register: string;
   login: string;
   docs: string;

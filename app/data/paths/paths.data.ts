@@ -1,4 +1,4 @@
-import Paths from "~/interfaces/paths/paths";
+import Paths from "~/interfaces/paths/paths.interface";
 
 export const path: Paths = {
   features: {
@@ -11,6 +11,7 @@ export const path: Paths = {
     shortcuts: "/features/shortcuts",
     recurring: "/features/recurring",
   },
+  app: { main: "/main" },
   register: "/register",
   login: "/login",
   docs: "/docs",

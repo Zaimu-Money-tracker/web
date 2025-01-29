@@ -3,7 +3,7 @@ import DropDownButton from "../buttons/dropDownButton";
 import { TbPigMoney } from "react-icons/tb";
 import { TiFlashOutline } from "react-icons/ti";
 import { PiRecycleBold } from "react-icons/pi";
-import { path } from "~/data/paths/paths";
+import { path } from "~/data/paths/paths.data";
 
 export default function MainDropDown() {
   return (

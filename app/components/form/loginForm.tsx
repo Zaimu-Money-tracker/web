@@ -1,13 +1,36 @@
-import { Form } from "@remix-run/react";
-import { AnimatePresence, motion } from "motion/react";
+import { Form, useNavigate } from "@remix-run/react";
+import { motion } from "motion/react";
 import FormCard from "./formCard";
-import { login } from "~/data/form/auth";
+import { login } from "~/data/form/auth.data";
+import axios from "axios";
+import { path } from "~/data/paths/paths.data";
+import { EnvConfig } from "~/config/env.config";
+
+const env = EnvConfig();
 
 export default function LoginForm() {
-  const formVariants = {
-    initial: { opacity: 0, scale: 0.8, x: 200 },
-    animate: { opacity: 1, scale: 1, x: 0 },
-    exit: { opacity: 0, scale: 0.8, x: -200 },
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+
+    await axios
+      .post(
+        `${env.zaimu_api_url}/login`,
+        {
+          email: data.email,
+          password: data.password,
+        },
+        { withCredentials: true }
+      )
+      .then(() => {
+        return navigate(path.app.main);
+      })
+      .catch((err) => {
+        return console.log(err);
+      });
   };
 
   return (
@@ -18,27 +41,22 @@ export default function LoginForm() {
         <div className="flex min-w-2.5 h-2.5 rounded-full bg-transparent border-2 border-secondary" />
       </div>
 
-      <Form className="flex flex-col gap-12" action="" method="post">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key="step-0"
-            variants={formVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            transition={{ type: "spring", visualDuration: 0.3, bounce: 0.4 }}
-          >
-            <FormCard
-              title="Good to see you again!"
-              description="Hey, welcome back! We're glad to see you here again."
-              footer={false}
-              buttonText="Login"
-              inputs={login}
-              checkBox={{ render: true, text: "Remember me" }}
-            />
-          </motion.div>
-        </AnimatePresence>
-      </Form>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ type: "spring", visualDuration: 0.3, bounce: 0.4 }}
+      >
+        <Form method="post" onSubmit={handleSubmit}>
+          <FormCard
+            title="Good to see you again!"
+            description="Hey, welcome back! We're glad to see you here again."
+            footer={false}
+            buttonText="Login"
+            inputs={login}
+            checkBox={{ render: true, text: "Remember me", name: "checkbox" }}
+          />
+        </Form>
+      </motion.div>
     </>
   );
 }

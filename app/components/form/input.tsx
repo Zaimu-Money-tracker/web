@@ -6,11 +6,13 @@ export default function Input({
   type,
   name,
   defaultValue,
+  required,
 }: {
   placeholder: string;
   type: string;
   name: string;
   defaultValue?: string;
+  required?: boolean;
 }) {
   const [selected, setSelected] = useState<boolean>(!!defaultValue);
   const [value, setValue] = useState<string>(defaultValue || "");
@@ -56,6 +58,7 @@ export default function Input({
         type={type}
         name={name}
         defaultValue={defaultValue}
+        required={required ?? false}
         onChange={(e) => setValue(e.target.value)}
       />
     </label>

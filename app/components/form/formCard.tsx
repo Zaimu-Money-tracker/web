@@ -1,7 +1,7 @@
 import CheckboxInput from "./checkboxInput";
 import Button from "../common/buttons/button";
 import BasicLink from "../common/links/basicLink";
-import { path } from "~/data/paths/paths";
+import { path } from "~/data/paths/paths.data";
 
 export default function FormCard({
   title,

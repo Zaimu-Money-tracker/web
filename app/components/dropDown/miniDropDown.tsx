@@ -1,6 +1,6 @@
 import { FaGithub, FaHeart, FaUser } from "react-icons/fa";
 import DropDownButton from "../buttons/dropDownButton";
-import { path } from "~/data/paths/paths";
+import { path } from "~/data/paths/paths.data";
 
 export default function MiniDropDown() {
   return (

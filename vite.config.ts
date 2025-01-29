@@ -24,4 +24,5 @@ export default defineConfig({
     tailwindcss(),
     tsconfigPaths(),
   ],
+  envPrefix: "ZAIMU",
 });

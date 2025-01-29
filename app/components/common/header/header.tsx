@@ -7,7 +7,7 @@ import { Link } from "@remix-run/react";
 import MainDropDown from "../../dropDown/mainDropDown";
 import BigDropDown from "~/components/dropDown/bigDropDown";
 import MiniDropDown from "~/components/dropDown/miniDropDown";
-import { path } from "~/data/paths/paths";
+import { path } from "~/data/paths/paths.data";
 
 export default function Header() {
   return (

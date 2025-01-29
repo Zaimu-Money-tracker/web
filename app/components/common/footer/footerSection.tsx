@@ -1,4 +1,4 @@
-import BasicLink from "~/interfaces/footer/basicLink";
+import BasicLink from "~/interfaces/footer/basicLink.interface";
 import FooterLink from "./footerLink";
 
 export default function FooterSection({
