@@ -24,6 +24,7 @@
   --shadow-primary: 0px 0px 20px 2px #ff8d35;
   --shadow-secondary: 0px 0px 20px 2px #ffca35;
   --shadow-gray-1: 0px 0px 30px 2px #d4d4d48c;
+  --shadow-gray-2: 0px 0px 20px 2px #9999998c;
 
   /* Easing */
   --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);

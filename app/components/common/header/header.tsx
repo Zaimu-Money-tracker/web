@@ -49,7 +49,7 @@ export default function Header() {
           </div>
 
           <div className="flex flex-row-reverse gap-6 items-center">
-            <ButtonLink text="Download" link={path.download} />
+            <ButtonLink text="Download" link={path.download} type="primary" />
             <Link
               className="flex font-bold text-lg items-center text-neutral-800/70 hover:text-neutral-700/100 cursor-pointer px-2 py-0.5 transition-all ease-linear duration-200"
               to="/Login"

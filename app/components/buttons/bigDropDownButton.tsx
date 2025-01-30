@@ -20,7 +20,7 @@ export default function BigDropDownButton({
         </p>
       </div>
 
-      <ButtonLink text={btnText} link={link} />
+      <ButtonLink text={btnText} link={link} type="primary" />
     </>
   );
 }

@@ -33,7 +33,7 @@ export default function Profile() {
   return (
     <>
       <div className="flex flex-col gap-10 w-fit h-screen items-center justify-center">
-        <div className="flex flex-col gap-2 max-w-xl text-center">
+        <div className="flex flex-col gap-2 max-w-md text-center">
           <span className="text-6xl font-black text-neutral-700">
             Good to see you, <span className="text-primary">{user.name}!</span>
           </span>
@@ -44,8 +44,8 @@ export default function Profile() {
         </div>
 
         <div className="flex gap-8">
-          <ButtonLink text="Take a look" link=" " />
-          <ButtonLink text="Open App" link="" />
+          <ButtonLink text="Take a look" link=" " type="primary" />
+          <ButtonLink text="Open App" link="" type="secondary" />
         </div>
       </div>
     </>
