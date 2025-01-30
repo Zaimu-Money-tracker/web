@@ -7,15 +7,16 @@ import { TiFlashOutline } from "react-icons/ti";
 import { FaHeart } from "react-icons/fa";
 import { PiGearSixBold } from "react-icons/pi";
 import { BiHelpCircle } from "react-icons/bi";
+import { path } from "~/data/paths/paths.data";
 
 export default function SideBar() {
   return (
     <div className="flex h-screen items-center justify-center">
-      <nav className="flex flex-col gap-4 bg-gray-1/65 w-fit h-[calc(100%_-_margin)] self-center m-4 p-6 rounded-2xl">
+      <nav className="flex flex-col gap-4 bg-gray-1/65 w-fit h-[calc(100%_-_margin)] self-center m-4 py-6 px-4 rounded-2xl">
         <div className="w-max">
           <Link
             className="flex gap-3 items-center"
-            to="/"
+            to={path.app.main}
             aria-label="Zaimu Main Page"
           >
             <img
@@ -36,32 +37,32 @@ export default function SideBar() {
             <SideBarButton
               text="Home"
               icon={<FiHome className="w-5 h-5" />}
-              link=""
+              link={path.app.home}
             />
             <SideBarButton
               text="Inbox"
               icon={<MdOutlineInbox className="w-5 h-5" />}
-              link=""
+              link={""}
             />
             <SideBarButton
               text="Overview"
               icon={<LuGrid2X2 className="w-5 h-5" />}
-              link=""
+              link={path.app.overview}
             />
             <SideBarButton
               text="Finances"
               icon={<LuCreditCard className="w-5 h-5" />}
-              link=""
+              link={path.app.finances.transactions}
             />
             <SideBarButton
               text="Actions"
               icon={<TiFlashOutline className="w-5 h-5" />}
-              link=""
+              link={path.app.actions}
             />
             <SideBarButton
               text="Goals"
               icon={<LuGoal className="w-5 h-5" />}
-              link=""
+              link={path.app.goals}
             />
           </ul>
         </div>
@@ -73,7 +74,7 @@ export default function SideBar() {
             <SideBarButton
               text="Plan"
               icon={<FaHeart className="w-4.5 h-4.5" />}
-              link=""
+              link={path.pricing}
             />
             <SideBarButton
               text="Help"
@@ -83,7 +84,7 @@ export default function SideBar() {
             <SideBarButton
               text="Settings"
               icon={<PiGearSixBold className="w-5 h-5 " />}
-              link=""
+              link={path.app.settings}
             />
           </ul>
         </div>

@@ -9,7 +9,20 @@ export default interface Paths {
     shortcuts: string;
     recurring: string;
   };
-  app: { main: string };
+  app: {
+    main: string;
+    home: string;
+    overview: string;
+    finances: {
+      transactions: string;
+      expenses: string;
+      incomes: string;
+      savings: string;
+    };
+    actions: string;
+    goals: string;
+    settings: string;
+  };
   register: string;
   login: string;
   docs: string;
