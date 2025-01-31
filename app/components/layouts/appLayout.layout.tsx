@@ -8,7 +8,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     <DataProvider>
       <div className="flex gap-4">
         <SideBar />
-        <main className="flex flex-col w-full h-screen relative mr-12">
+        <main className="flex flex-col w-full h-screen relative mr-12 gap-8">
           <UserProfile />
 
           <RenderNavBar />
