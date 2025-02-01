@@ -6,6 +6,11 @@ import NothingHere from "~/components/common/zaimu/NothingHere";
 import { EnvConfig } from "~/config/env.config";
 import Goal from "~/interfaces/entities/goal.interface";
 import FormatNumber from "~/utils/formatNumber";
+import { MetaFunction } from "@remix-run/react";
+
+export const meta: MetaFunction = () => {
+  return [{ title: "Zaimu - Goals" }];
+};
 
 const env = EnvConfig();
 

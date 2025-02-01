@@ -6,6 +6,11 @@ import TransactionItem from "~/components/common/zaimu/transaction";
 import { motion } from "motion/react";
 import AddButton from "~/components/common/zaimu/addButton";
 import NothingHere from "~/components/common/zaimu/NothingHere";
+import { MetaFunction } from "@remix-run/react";
+
+export const meta: MetaFunction = () => {
+  return [{ title: "Zaimu - Finances" }];
+};
 
 const env = EnvConfig();
 

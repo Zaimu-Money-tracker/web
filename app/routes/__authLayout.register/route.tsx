@@ -5,7 +5,7 @@ import type { MetaFunction } from "@remix-run/node";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Zaimu" },
+    { title: "Zaimu - Register" },
     {
       name: "description",
       content:

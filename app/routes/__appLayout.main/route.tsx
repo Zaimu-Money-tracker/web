@@ -1,6 +1,11 @@
 import ButtonLink from "~/components/common/buttons/buttonLink";
 import { path } from "~/data/paths/paths.data";
 import { motion } from "motion/react";
+import { MetaFunction } from "@remix-run/react";
+
+export const meta: MetaFunction = () => {
+  return [{ title: "Zaimu" }];
+};
 
 export default function Main() {
   return (

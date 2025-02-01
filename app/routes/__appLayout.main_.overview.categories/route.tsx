@@ -9,6 +9,11 @@ import PostModal from "~/components/modal/postModal";
 import BasicCard from "~/components/common/cards/basicCard";
 import TrashButton from "~/components/common/buttons/trashButton";
 import DeleteModal from "~/components/modal/deleteModal";
+import { MetaFunction } from "@remix-run/react";
+
+export const meta: MetaFunction = () => {
+  return [{ title: "Zaimu - Overview" }];
+};
 
 const env = EnvConfig();
 
