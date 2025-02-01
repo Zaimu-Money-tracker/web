@@ -1,3 +1,3 @@
 export default function FormatNumber(number: number) {
-  return number.toLocaleString("en-GB");
+  return number.toLocaleString("en-GB", { maximumFractionDigits: 2 });
 }

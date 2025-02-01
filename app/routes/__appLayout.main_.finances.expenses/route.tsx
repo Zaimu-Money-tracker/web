@@ -5,6 +5,7 @@ import { EnvConfig } from "~/config/env.config";
 import TransactionItem from "~/components/common/zaimu/transaction";
 import { motion } from "motion/react";
 import AddButton from "~/components/common/zaimu/addButton";
+import NothingHere from "~/components/common/zaimu/NothingHere";
 
 const env = EnvConfig();
 
@@ -29,19 +30,22 @@ export default function Expenses() {
   }, []);
 
   if (!transactions) return <>There&apos;s no transactions</>;
-  return (
-    <>
-      <section className="flex flex-col gap-6 h-full">
-        <motion.span
-          className="font-bold text-neutral-700 text-2xl"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          All Expenses
-        </motion.span>
 
+  return (
+    <section className="flex flex-col gap-6 h-full mb-6">
+      <motion.span
+        className="font-bold text-neutral-700 text-2xl"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        All Expenses
+      </motion.span>
+
+      {transactions.length === 0 ? (
+        <NothingHere />
+      ) : (
         <ul className="flex flex-col gap-3">
           {transactions.map((data, index) => {
             const createdAt = new Date(data.createdAt);
@@ -59,9 +63,8 @@ export default function Expenses() {
             );
           })}
         </ul>
-      </section>
-
+      )}
       <AddButton />
-    </>
+    </section>
   );
 }

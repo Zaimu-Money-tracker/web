@@ -12,7 +12,12 @@ export default interface Paths {
   app: {
     main: string;
     home: string;
-    overview: string;
+    overview: {
+      general: string;
+      expenses: string;
+      incomes: string;
+      categories: string;
+    };
     finances: {
       transactions: string;
       expenses: string;

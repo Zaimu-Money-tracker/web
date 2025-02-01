@@ -1,10 +1,12 @@
 import { motion } from "motion/react";
 import { FaPlus } from "react-icons/fa";
 
-export default function AddButton() {
+export default function AddButton({ action }: { action: () => void }) {
   return (
-    <motion.div
-      className="w-fit h-fit bg-linear-to-b from-primary to-secondary p-4 rounded-full shadow-primary self-center mb-6 cursor-pointer"
+    <motion.button
+      className="w-fit h-fit bg-linear-to-b from-primary to-secondary p-4 rounded-full shadow-primary self-center cursor-pointer"
+      type="button"
+      onClick={action}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -14,6 +16,6 @@ export default function AddButton() {
       whileFocus={{ scale: 1.05 }}
     >
       <FaPlus className="text-white w-6 h-6" />
-    </motion.div>
+    </motion.button>
   );
 }

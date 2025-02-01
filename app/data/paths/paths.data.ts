@@ -14,7 +14,12 @@ export const path: Paths = {
   app: {
     main: "/main",
     home: "/main/home",
-    overview: "/main/overview",
+    overview: {
+      general: "/main/overview/general",
+      expenses: "/main/overview/expenses",
+      incomes: "/main/overview/incomes",
+      categories: "/main/overview/categories",
+    },
     finances: {
       transactions: "/main/finances/transactions",
       expenses: "/main/finances/expenses",

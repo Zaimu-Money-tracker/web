@@ -50,8 +50,8 @@ export default function SideBar() {
             <SideBarButton
               text="Overview"
               icon={<LuGrid2X2 className="w-5 h-5" />}
-              link={path.app.overview}
-              isActive={location.pathname === path.app.overview}
+              link={path.app.overview.general}
+              isActive={location.pathname.includes("/main/overview")}
             />
             <SideBarButton
               text="Finances"

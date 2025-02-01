@@ -3,7 +3,6 @@ import { motion } from "motion/react";
 import { useState } from "react";
 import FormCard from "~/components/form/formCard";
 import Input from "./input";
-import DateInput from "./dateInput";
 import axios from "axios";
 import { path } from "~/data/paths/paths.data";
 import { EnvConfig } from "~/config/env.config";
@@ -15,9 +14,6 @@ export default function RegisterForm() {
 
   const [formRender, setFormRender] = useState<number>(0);
   const [firstForm, setFirstForm] = useState<{
-    [key: string]: FormDataEntryValue;
-  }>();
-  const [secondForm, setSecondForm] = useState<{
     [key: string]: FormDataEntryValue;
   }>();
 
@@ -44,7 +40,11 @@ export default function RegisterForm() {
         defaultValue="COP"
         required
       />
-      <DateInput placeholder="Birth date" name="date" required data-step={0} />
+      <Input
+        placeholder="Profession (Optional)"
+        type="text"
+        name="profession"
+      />
     </div>,
 
     <Input
@@ -58,25 +58,6 @@ export default function RegisterForm() {
   ];
 
   const registerSecond = [
-    <div className="flex gap-3" key={"user-profession-inputs"}>
-      <Input placeholder="User name" type="text" name="userName" required />
-      <Input
-        placeholder="Profession (Optional)"
-        type="text"
-        name="profession"
-      />
-    </div>,
-
-    <Input
-      key={"gender-input"}
-      placeholder="Gender"
-      type="text"
-      name="gender"
-      required
-    />,
-  ];
-
-  const registerThird = [
     <div className="flex gap-3" key={"language-theme-inputs"}>
       <Input
         placeholder="Language"
@@ -86,10 +67,10 @@ export default function RegisterForm() {
         required
       />
       <Input
-        placeholder="Theme"
+        placeholder="Appearance"
         type="text"
-        name="theme"
-        defaultValue="dark"
+        name="appearance"
+        defaultValue="Dark"
         required
       />
     </div>,
@@ -110,19 +91,13 @@ export default function RegisterForm() {
 
     const finalData = {
       ...data,
-      emailNotification: formData.has("emailNotification").toString(),
-      whatsAppReminder: formData.has("whatsappReminder").toString(),
+      emailNotification: formData.has("emailNotification"),
+      whatsAppReminder: formData.has("whatsappReminder"),
     };
 
     if (formRender === 0 && data) {
       setFirstForm(data);
-
       setFormRender(1);
-      return;
-    }
-    if (formRender === 1 && data) {
-      setSecondForm(data);
-      setFormRender(2);
       return;
     }
 
@@ -131,10 +106,9 @@ export default function RegisterForm() {
 
   const postData = async (
     data: { [key: string]: FormDataEntryValue },
-    finalData: { [key: string]: FormDataEntryValue }
+    finalData: { emailNotification: boolean; whatsAppReminder: boolean }
   ) => {
     if (!firstForm) return setFormRender(0);
-    if (!secondForm) return setFormRender(1);
 
     await axios
       .post(
@@ -142,17 +116,13 @@ export default function RegisterForm() {
         {
           name: firstForm.firstName,
           lastName: firstForm.lastName,
-          userName: secondForm.userName,
-          gender: secondForm.gender,
-          profession: secondForm.profession,
-          birthDate: firstForm.date,
+          profession: firstForm.profession,
           email: firstForm.email,
           password: firstForm.password,
           settings: {
             language: data.language,
             currency: firstForm.currency,
-            theme: data.theme,
-            appearance: "dark",
+            appearance: data.appearance,
             notifications: {
               email: finalData.emailNotification,
               whatsApp: finalData.whatsAppReminder,
@@ -178,27 +148,14 @@ export default function RegisterForm() {
           }`}
         />
         <div
-          className={`bg-neutral-200 h-0.75 rounded-full w-full bar-1 relative after:from-primary after:to-middle ${
+          className={`bg-neutral-200 h-0.75 rounded-full w-full bar-1 relative after:from-primary after:to-secondary ${
             formRender >= 1 ? "after:w-full" : "after:w-0"
           }`}
         />
+
         <div
           className={`flex min-w-2.5 h-2.5 rounded-full  border-2 transition-all ease-in-out duration-200 ${
             formRender === 1
-              ? "border-middle bg-transparent"
-              : formRender > 1
-              ? "border-middle bg-middle"
-              : "border-neutral-200 bg-neutral-200"
-          }`}
-        />
-        <div
-          className={`bg-neutral-200 h-0.75 rounded-full w-full bar-2 relative after:from-middle after:to-secondary ${
-            formRender >= 2 ? "after:w-full" : "after:w-0"
-          }`}
-        />
-        <div
-          className={`flex min-w-2.5 h-2.5 rounded-full  border-2 transition-all ease-in-out duration-200 ${
-            formRender === 2
               ? "border-secondary bg-transparent"
               : "border-neutral-200 bg-neutral-200"
           }`}
@@ -244,33 +201,11 @@ export default function RegisterForm() {
         >
           <Form method="post" onSubmit={handleSubmit}>
             <FormCard
-              title="Customize your profile!"
-              description="Time to customize your profile! How do you want it to look?"
-              footer
-              buttonText="Next step"
-              buttonAction={() => handleSubmit}
-              inputs={registerSecond}
-              checkBox={{ render: false, text: "", name: "" }}
-            />
-          </Form>
-        </motion.div>
-        <motion.div
-          className={`${formRender != 2 ? "hidden" : "flex"}`}
-          initial={{ opacity: 0, scale: 0.8, x: 200 }}
-          animate={
-            formRender === 2
-              ? { opacity: 1, scale: 1, x: 0 }
-              : { opacity: 0, scale: 0.8, x: 200 }
-          }
-          transition={{ type: "spring", visualDuration: 0.3, bounce: 0.4 }}
-        >
-          <Form method="post" onSubmit={handleSubmit}>
-            <FormCard
               title="App settings!"
               description="We're almost there! Customize Zaimu however you like."
               footer
               buttonText="Register"
-              inputs={registerThird}
+              inputs={registerSecond}
               checkBox={{
                 render: true,
                 text: "(Optional) Send WhatsApp reminders.",

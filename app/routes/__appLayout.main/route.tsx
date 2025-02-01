@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 
 export default function Main() {
   return (
-    <section className="flex h-full w-full absolute items-center justify-center">
+    <section className="flex h-full w-full items-center justify-center">
       <motion.div
         className="flex w-fit h-fit"
         initial={{ opacity: 0 }}
@@ -12,7 +12,7 @@ export default function Main() {
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="flex flex-col gap-10 w-fit items-center justify-center pt-56">
+        <div className="flex flex-col gap-10 w-fit items-center justify-center pt-32">
           <div className="flex flex-col gap-2 max-w-md text-center">
             <p className="text-neutral-500 font-semibold text-lg">
               Saving money is the best way to make your dreams come true.

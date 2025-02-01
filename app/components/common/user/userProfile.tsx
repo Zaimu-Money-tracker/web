@@ -49,11 +49,25 @@ export default function UserProfile() {
         </AnimatePresence>
       </div>
 
-      <div className="flex flex-col gap-0 text-neutral-700 self-end">
-        <span className="text-right w-full font-black text-lg ">
-          {user.name} {user.lastName}
-        </span>
-        <span className="text-right w-full font-medium">{user.profession}</span>
+      <div className="flex gap-4 text-neutral-700 self-end items-center flex-row-reverse">
+        <div className="w-fit h-fit">
+          <img
+            className="rounded-full"
+            src={user.profilePhoto.url}
+            alt={`${user.name} ${user.lastName} Profile`}
+            width={40}
+            height={40}
+          />
+        </div>
+
+        <div className="flex flex-col">
+          <span className="text-right w-full font-black text-lg">
+            {user.name} {user.lastName}
+          </span>
+          <span className="text-right w-full font-medium">
+            {user.profession}
+          </span>
+        </div>
       </div>
     </div>
   );

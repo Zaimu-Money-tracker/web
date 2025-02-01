@@ -8,10 +8,10 @@ export const financesLinks = [
 ];
 
 export const overviewLinks = [
-  { text: "General", link: path.app.finances.transactions },
-  { text: "Expenses", link: path.app.finances.expenses },
-  { text: "Incomes", link: path.app.finances.incomes },
-  { text: "Categories", link: path.app.finances.savings },
+  { text: "General", link: path.app.overview.general },
+  { text: "Expenses", link: path.app.overview.expenses },
+  { text: "Incomes", link: path.app.overview.incomes },
+  { text: "Categories", link: path.app.overview.categories },
 ];
 
 export const actionsLinks = [

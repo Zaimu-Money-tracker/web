@@ -1,4 +1,5 @@
 export default interface Category {
+  _id: string;
   name: string;
-  limit: number;
+  color: string;
 }

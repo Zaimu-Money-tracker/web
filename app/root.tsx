@@ -8,10 +8,37 @@ import {
 import type { LinksFunction } from "@remix-run/node";
 
 import "./styles/global.css";
+import { useEffect } from "react";
 
 export const links: LinksFunction = () => [];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const faviconLight = document.getElementById(
+      "faviconLight"
+    ) as HTMLLinkElement;
+    const faviconDark = document.getElementById(
+      "faviconDark"
+    ) as HTMLLinkElement;
+
+    if (!faviconLight || !faviconDark) return;
+
+    const handleFocus = () => {
+      faviconLight.href = "favicon-white.ico";
+      faviconDark.href = "favicon-black.ico";
+    };
+
+    const handleBlur = () => {
+      faviconLight.href = "favicon-white-sad.ico";
+      faviconDark.href = "favicon-black-sad.ico";
+    };
+
+    window.addEventListener("focus", handleFocus);
+    window.addEventListener("blur", handleBlur);
+  });
+
   return (
     <html lang="en">
       <head>
@@ -21,19 +48,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="theme-color" content="#ff8d35" />
 
         <link
-          id="favicon"
+          id="faviconLight"
           rel="shortcut icon"
-          href="/favicon-white.ico"
-          media="(prefers-color-scheme: no-preference)"
-          type="image/ico"
-        />
-        <link
-          rel="shortcut icon"
-          href="/favicon-white.ico"
+          href="favicon-white.ico"
           media="(prefers-color-scheme: dark)"
           type="image/ico"
         />
         <link
+          id="faviconDark"
           rel="shortcut icon"
           href="/favicon-black.ico"
           media="(prefers-color-scheme: light)"
