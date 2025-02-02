@@ -22,10 +22,10 @@
   --color-red: #ff5c5c;
 
   /* Shadows */
-  --shadow-primary: 0px 0px 20px 2px #ff8d35b9;
+  --shadow-primary: 0px 0px 20px 2px #ff8d3560;
   --shadow-secondary: 0px 0px 20px 2px #ffca35;
-  --shadow-gray-1: 0px 0px 30px 2px #d4d4d48c;
-  --shadow-gray-2: 0px 0px 20px 2px #9999998c;
+  --shadow-gray-1: 0px 0px 30px 2px #d4d4d460;
+  --shadow-gray-2: 0px 0px 20px 2px #99999960;
   --shadow-red: 0px 0px 20px 2px #ff5c5c8c;
 
   /* Easing */

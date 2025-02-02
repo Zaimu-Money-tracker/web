@@ -113,7 +113,7 @@ export default function OverviewCategories() {
                     },
                   }}
                   exit={{ opacity: 0, y: -20 }}
-                  whileHover={{ scale: 1.015 }}
+                  whileHover={{ scale: 1.005 }}
                   transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
                 >
                   <div className="flex gap-2 items-center min-w-36">

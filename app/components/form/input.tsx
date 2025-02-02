@@ -29,8 +29,14 @@ export default function Input({
       onBlur={() => canDeselect()}
     >
       <motion.span
-        className="absolute text-neutral-500 px-3 select-none font-medium"
-        initial={{ top: 0, left: 0, fontSize: "1.125rem" }}
+        className="absolute text-neutral-500 px-3 select-none font-medium top-0 left-0 text-xl"
+        initial={{
+          top: 0,
+          left: 0,
+          fontSize: "1.125rem",
+          paddingTop: "0.75rem",
+          paddingBottom: "0.75rem",
+        }}
         animate={
           selected
             ? {
@@ -38,6 +44,8 @@ export default function Input({
                 left: "-0.5rem",
                 fontSize: "0.875rem",
                 cursor: "default",
+                paddingTop: "0rem",
+                paddingBottom: "0rem",
               }
             : {
                 top: 0,
@@ -48,7 +56,7 @@ export default function Input({
                 cursor: "text",
               }
         }
-        transition={{ type: "spring", stiffness: 300, damping: 16 }}
+        transition={{ duration: 0.15, ease: "easeInOut" }}
         onClick={() => setSelected(true)}
       >
         {placeholder}
