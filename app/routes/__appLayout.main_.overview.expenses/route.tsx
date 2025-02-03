@@ -9,6 +9,7 @@ import TransactionItem from "~/components/common/zaimu/transaction";
 import {
   createTransaction,
   deleteTransaction,
+  getExpenses,
   getIncomes,
 } from "~/services/zaimu/entities/transactions";
 import SelectTypeInput from "~/components/form/SelectTypeInput";
@@ -58,13 +59,20 @@ export default function OverviewIncomes() {
   const [id, setId] = useState<string>("");
 
   const [incomes, setIncomes] = useState<number>(0);
-  const [bigestIncome, setBigestIncome] = useState<Transaction>();
-  const [lowestIncome, setLowestIncome] = useState<Transaction>();
+  const [expenses, setExpenses] = useState<number>(0);
+  const [bigestExpense, setBigestExpense] = useState<Transaction>();
+  const [lowestExpense, setLowestExpense] = useState<Transaction>();
 
-  const handleGetIncomes = async () => {
-    const data = await getIncomes();
+  const handleGetExpenses = async () => {
+    const data = await getExpenses();
 
     return setTransactions(data);
+  };
+
+  const handleGetIncomes = async () => {
+    const data: Transaction[] = await getIncomes();
+
+    return setExpenses(data.reduce((acc, item) => acc + item.amount, 0));
   };
 
   const handleCreateTransaction = async (data: {
@@ -74,29 +82,30 @@ export default function OverviewIncomes() {
     setShow(false);
     close();
 
-    return handleGetIncomes();
+    return handleGetExpenses();
   };
 
   const handleDeleteTransaction = async (id: string) => {
     await deleteTransaction(id);
 
-    handleGetIncomes();
+    handleGetExpenses();
     return setShowDelete(false);
   };
 
   useEffect(() => {
+    handleGetExpenses();
     handleGetIncomes();
 
     if (!transactions) return;
     setIncomes(transactions.reduce((acc, item) => acc + item.amount, 0));
 
-    setBigestIncome(
+    setBigestExpense(
       transactions.reduce(
         (max, item) => (item.amount > max.amount ? item : max),
         transactions[0]
       )
     );
-    setLowestIncome(
+    setLowestExpense(
       transactions.reduce(
         (min, item) => (item.amount < min.amount ? item : min),
         transactions[0]
@@ -143,7 +152,7 @@ export default function OverviewIncomes() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            Recent incomes
+            Recent expenses
           </motion.span>
 
           {transactions.length === 0 ? (
@@ -168,7 +177,7 @@ export default function OverviewIncomes() {
             <span className="text-neutral-500">Something is missing?</span>
             <Link
               className="text-primary font-bold"
-              to={path.app.finances.incomes}
+              to={path.app.finances.expenses}
             >
               Se all
             </Link>
@@ -186,13 +195,19 @@ export default function OverviewIncomes() {
             transition={{ duration: 0.3 }}
           >
             <span className="font-bold text-xl text-black/55">
-              Total incomes
+              Total expenses
             </span>
             <span className="font-semibold text-black/40">This month</span>
           </motion.header>
 
           <span className="text-black/45 font-bold text-4xl">
             ${FormatNumber(incomes)}
+          </span>
+          <span className="text-black/50 font-medium">
+            <span className="text-black/40 font-bold">
+              {FormatNumber((incomes / expenses) * 100)}%{" "}
+            </span>
+            of your current balance
           </span>
         </ColorCard>
 
@@ -204,17 +219,17 @@ export default function OverviewIncomes() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <span>Bigest income</span>
+            <span>Bigest expense</span>
           </motion.header>
 
           <div className="flex gap-4 items-center">
             <CircularProgress
               size={110}
-              color={bigestIncome?.category.color ?? "#ff8d35"}
+              color={bigestExpense?.category.color ?? "#ff8d35"}
               percentage={
-                bigestIncome
+                bigestExpense
                   ? parseFloat(
-                      FormatNumber((bigestIncome.amount / incomes) * 100)
+                      FormatNumber((bigestExpense.amount / incomes) * 100)
                     )
                   : 0
               }
@@ -223,19 +238,19 @@ export default function OverviewIncomes() {
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-0">
                 <span className="font-bold text-neutral-600 text-3xl">
-                  {bigestIncome ? bigestIncome.name : "???"}
+                  {bigestExpense ? bigestExpense.name : "???"}
                 </span>
 
                 <span className="font-medium text-neutral-500 text-lg">
-                  {bigestIncome
-                    ? FormatNumber((bigestIncome.amount / incomes) * 100)
+                  {bigestExpense
+                    ? FormatNumber((bigestExpense.amount / incomes) * 100)
                     : "--"}
                   %
                 </span>
               </div>
 
               <span className="font-bold text-primary text-4xl">
-                ${bigestIncome ? FormatNumber(bigestIncome.amount) : "---"}
+                ${bigestExpense ? FormatNumber(bigestExpense.amount) : "---"}
               </span>
             </div>
           </div>
@@ -249,17 +264,17 @@ export default function OverviewIncomes() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <span>Lowest income</span>
+            <span>Lowest expense</span>
           </motion.header>
 
           <div className="flex gap-4 items-center">
             <CircularProgress
               size={110}
-              color={lowestIncome?.category.color ?? "#ff8d35"}
+              color={lowestExpense?.category.color ?? "#ff8d35"}
               percentage={
-                lowestIncome
+                lowestExpense
                   ? parseFloat(
-                      FormatNumber((lowestIncome.amount / incomes) * 100)
+                      FormatNumber((lowestExpense.amount / incomes) * 100)
                     )
                   : 0
               }
@@ -268,19 +283,19 @@ export default function OverviewIncomes() {
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-0">
                 <span className="font-bold text-neutral-600 text-3xl">
-                  {lowestIncome ? lowestIncome.name : "???"}
+                  {lowestExpense ? lowestExpense.name : "???"}
                 </span>
 
                 <span className="font-medium text-neutral-500 text-lg">
-                  {lowestIncome
-                    ? FormatNumber((lowestIncome.amount / incomes) * 100)
+                  {lowestExpense
+                    ? FormatNumber((lowestExpense.amount / incomes) * 100)
                     : "--"}
                   %
                 </span>
               </div>
 
               <span className="font-bold text-primary text-4xl">
-                ${lowestIncome ? FormatNumber(lowestIncome.amount) : "---"}
+                ${lowestExpense ? FormatNumber(lowestExpense.amount) : "---"}
               </span>
             </div>
           </div>
