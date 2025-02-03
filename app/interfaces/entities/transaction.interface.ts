@@ -2,19 +2,19 @@ import User from "../user/user.interface";
 import Category from "./category.interface";
 
 export default interface Transaction {
-  _id?: string;
+  _id: string;
   type: string;
   amount: number;
   name: string;
-  category?: Category | string;
-  image?: {
+  category: Category;
+  image: {
     url: string;
     id: string;
   };
-  description?: string;
+  description: string;
   recurring: boolean;
-  recurrency?: string;
-  user?: User;
-  createdAt?: Date;
-  updatedAt?: Date;
+  recurrency: string;
+  user: User;
+  createdAt: Date;
+  updatedAt: Date;
 }

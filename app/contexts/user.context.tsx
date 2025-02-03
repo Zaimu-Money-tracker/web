@@ -10,6 +10,7 @@ interface DataContextType {
 const DataContext = createContext<DataContextType | undefined>(undefined);
 
 export function DataProvider({ children }: { children: React.ReactNode }) {
+  // TODO: Redirect to user not found page or to register page.
   const [user, setUser] = useState<User>();
 
   const fetchData = async () => {

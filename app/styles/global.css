@@ -53,9 +53,9 @@ html {
 }
 
 .mini-scroll-bar::-webkit-scrollbar {
-  @apply w-1;
+  @apply w-0.75;
 }
 
 .mini-scroll-bar::-webkit-scrollbar-thumb {
-  @apply w-1 bg-primary rounded-full;
+  @apply w-0.75 bg-neutral-300/40 rounded-full;
 }

@@ -7,9 +7,8 @@ export const Colors: Option[] = [
   { name: "Green", value: "#05df72" },
   { name: "Light blue", value: "#00bcff" },
   { name: "Dark blue", value: "#51a2ff" },
-  { name: "Violet", value: "#a684ff" },
-  { name: "Purple", value: "#c27aff" },
+  { name: "Purple", value: "#a684ff" },
   { name: "Pink", value: "#fb64b6" },
-  { name: "White", value: "#f0f0f0" },
+  { name: "White", value: "#fff" },
   { name: "Black", value: "#333" },
 ];

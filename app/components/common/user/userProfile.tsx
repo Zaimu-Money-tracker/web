@@ -53,7 +53,7 @@ export default function UserProfile() {
         <div className="w-fit h-fit">
           <img
             className="rounded-full"
-            src={user.profilePhoto.url}
+            src={user.profilePhoto?.url}
             alt={`${user.name} ${user.lastName} Profile`}
             width={40}
             height={40}

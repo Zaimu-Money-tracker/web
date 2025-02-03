@@ -48,6 +48,44 @@ export default function ColorInput({
         )}
       </button>
 
+      <motion.span
+        className="absolute text-neutral-500 px-3 select-none font-medium top-0 left-0 text-xl cursor-pointer"
+        initial={{
+          top: 0,
+          left: 0,
+          fontSize: "1.125rem",
+          paddingTop: "0.75rem",
+          paddingBottom: "0.75rem",
+          cursor: "pointer",
+        }}
+        animate={
+          selected
+            ? {
+                top: "-1.25rem",
+                left: "-0.5rem",
+                fontSize: "0.875rem",
+                cursor: "default",
+                paddingTop: "0rem",
+                paddingBottom: "0rem",
+                opacity: 1,
+                pointerEvents: "auto",
+              }
+            : {
+                top: 0,
+                left: 0,
+                fontSize: "1.125rem",
+                paddingTop: "0.75rem",
+                paddingBottom: "0.75rem",
+                opacity: 0,
+                cursor: "pointer",
+                pointerEvents: "none",
+              }
+        }
+        transition={{ duration: 0.15, ease: "easeInOut" }}
+      >
+        Choose a color
+      </motion.span>
+
       <AnimatePresence>
         {isOpen && (
           <motion.ul

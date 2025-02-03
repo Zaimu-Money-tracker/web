@@ -39,6 +39,6 @@ export async function loginUser(data: { [key: string]: FormDataEntryValue }) {
 }
 
 export async function getUser() {
-  const response = await api.get("/user").then((res) => res.data);
+  const response = await api.get("/user");
   return response.data;
 }

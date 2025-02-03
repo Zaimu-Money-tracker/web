@@ -16,7 +16,6 @@ export default function TransactionItem({
   searchId: (id: string) => void;
 }) {
   const createdAt = new Date(transaction.createdAt);
-
   return (
     <motion.li
       className="flex relative justify-between items-center bg-white shadow-gray-1 rounded-2xl pl-2 pr-4 py-2 group"
@@ -68,7 +67,7 @@ export default function TransactionItem({
         </div>
       </div>
 
-      <span className="font-medium text-neutral-600">
+      <span className="font-medium text-neutral-500">
         {FormatDate(createdAt)}
       </span>
 

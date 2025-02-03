@@ -60,6 +60,7 @@ export default function AmountInput({
               }
         }
         transition={{ duration: 0.15, ease: "easeInOut" }}
+        onClick={() => setSelected(true)}
       >
         {placeholder}
       </motion.span>

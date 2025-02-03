@@ -1,5 +1,5 @@
-import Transaction from "~/interfaces/entities/transaction.interface";
 import { api } from "../api";
+import TransactionPayload from "~/interfaces/payloads/entities/transactionPayload.interface";
 
 export async function createTransaction(data: {
   [key: string]: FormDataEntryValue;
@@ -8,7 +8,7 @@ export async function createTransaction(data: {
     data.amount.toString().replaceAll(",", "").replace("$", "")
   );
 
-  const payload: Transaction = {
+  const payload: TransactionPayload = {
     type: data.type.toString().toLowerCase(),
     amount: amount,
     name: data.name.toString(),
@@ -17,7 +17,7 @@ export async function createTransaction(data: {
 
   if (data.category) payload.category = data.category.toString();
 
-  const response = await api.post("/", payload);
+  const response = await api.post("/transactions", payload);
   return response.data;
 }
 
@@ -26,7 +26,17 @@ export async function getTransactions() {
   return response.data;
 }
 
+export async function getExpenses() {
+  const response = await api.get("/transactions/expenses");
+  return response.data;
+}
+
+export async function getIncomes() {
+  const response = await api.get("/transactions/incomes");
+  return response.data;
+}
+
 export async function deleteTransaction(id: string) {
-  const response = await api.get(`/transactions/item/${id}`);
+  const response = await api.delete(`/transactions/item/${id}`);
   return response.data;
 }

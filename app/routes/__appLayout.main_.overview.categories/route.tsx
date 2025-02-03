@@ -116,24 +116,24 @@ export default function OverviewCategories() {
         {categories.length === 0 ? (
           <NothingHere />
         ) : (
-          <ul className="flex flex-col gap-2 w-full h-full">
+          <ul className="flex flex-col pl-0.75 pr-2 gap-2 w-full h-full overflow-y-scroll mini-scroll-bar max-h-[589px]">
             {categories?.map((category, index) => {
               return (
                 <motion.li
                   className="flex justify-between bg-neutral-100 p-1.5 rounded-full w-full h-fit items-center pr-2.5 relative group"
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{
                     opacity: 1,
                     y: 0,
                     transition: {
-                      delay: index * 0.1,
+                      delay: index * 0.03,
                       duration: 0.6,
                       type: "spring",
                       bounce: 0.5,
                     },
                   }}
-                  exit={{ opacity: 0, y: -20 }}
+                  exit={{ opacity: 0, y: -10 }}
                   whileHover={{ scale: 1.005 }}
                   transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
                 >

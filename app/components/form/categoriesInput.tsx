@@ -56,17 +56,59 @@ export default function CategoriesInput({
       >
         {selected ? (
           <div className="flex items-center gap-2">
-            <span>{selected.name}</span>
+            <div
+              className="w-5 h-5 rounded-full"
+              style={{ backgroundColor: selected.color }}
+            />
+            <span className="font-normal text-black">{selected.name}</span>
           </div>
         ) : (
           "Select a category"
         )}
       </button>
 
+      <motion.span
+        className="absolute text-neutral-500 px-3 select-none font-medium top-0 left-0 text-xl cursor-pointer"
+        initial={{
+          top: 0,
+          left: 0,
+          fontSize: "1.125rem",
+          paddingTop: "0.75rem",
+          paddingBottom: "0.75rem",
+          cursor: "pointer",
+        }}
+        animate={
+          selected
+            ? {
+                top: "-1.25rem",
+                left: "-0.5rem",
+                fontSize: "0.875rem",
+                cursor: "default",
+                paddingTop: "0rem",
+                paddingBottom: "0rem",
+                opacity: 1,
+                pointerEvents: "auto",
+              }
+            : {
+                top: 0,
+                left: 0,
+                fontSize: "1.125rem",
+                paddingTop: "0.75rem",
+                paddingBottom: "0.75rem",
+                opacity: 0,
+                cursor: "pointer",
+                pointerEvents: "none",
+              }
+        }
+        transition={{ duration: 0.15, ease: "easeInOut" }}
+      >
+        Select a category
+      </motion.span>
+
       <AnimatePresence>
         {isOpen && (
           <motion.ul
-            className="absolute w-full border-2 border-neutral-200 rounded-xl bg-white mt-1 max-h-56 h-fit mini-scroll-bar z-50 min-h-full content-center"
+            className="absolute w-full border-2 border-neutral-200 rounded-xl bg-white mt-1 h-fit mini-scroll-bar z-50 min-h-full overflow-y-scroll max-h-56 content-center"
             initial={{ opacity: 0, y: -10, pointerEvents: "auto" }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10, pointerEvents: "none" }}

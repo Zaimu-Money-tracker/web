@@ -6,10 +6,12 @@ export default function SelectTypeInput({
   name,
   required,
   options,
+  defaultValue,
 }: {
   name: string;
   required?: boolean;
   options: TypeOption[];
+  defaultValue?: string;
 }) {
   const [selected, setSelected] = useState<TypeOption>();
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -35,13 +37,55 @@ export default function SelectTypeInput({
         }}
       >
         {selected ? (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 text-black font-normal">
             <span>{selected.type}</span>
+          </div>
+        ) : defaultValue ? (
+          <div className="flex items-center gap-2 text-black font-normal">
+            <span>{defaultValue}</span>
           </div>
         ) : (
           "Select a type"
         )}
       </button>
+
+      <motion.span
+        className="absolute text-neutral-500 px-3 select-none font-medium top-0 left-0 text-xl cursor-pointer"
+        initial={{
+          top: 0,
+          left: 0,
+          fontSize: "1.125rem",
+          paddingTop: "0.75rem",
+          paddingBottom: "0.75rem",
+          cursor: "pointer",
+        }}
+        animate={
+          selected
+            ? {
+                top: "-1.25rem",
+                left: "-0.5rem",
+                fontSize: "0.875rem",
+                cursor: "default",
+                paddingTop: "0rem",
+                paddingBottom: "0rem",
+                opacity: 1,
+                pointerEvents: "auto",
+              }
+            : {
+                top: 0,
+                left: 0,
+                fontSize: "1.125rem",
+                paddingTop: "0.75rem",
+                paddingBottom: "0.75rem",
+                opacity: 0,
+                cursor: "pointer",
+                pointerEvents: "none",
+              }
+        }
+        transition={{ duration: 0.15, ease: "easeInOut" }}
+      >
+        Select a type
+      </motion.span>
 
       <AnimatePresence>
         {isOpen && (
@@ -70,6 +114,7 @@ export default function SelectTypeInput({
         type="hidden"
         name={name}
         value={selected?.type ?? ""}
+        defaultValue={defaultValue}
         required={required}
       />
     </div>
