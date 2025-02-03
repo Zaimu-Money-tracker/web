@@ -13,7 +13,7 @@ export default function EntitiesForm({
   inputs: React.ReactNode[];
 }) {
   return (
-    <article className="grid gap-6 p-8 items-center bg-white border-2 border-neutral-200 rounded-3xl shadow-gray-1 w-full max-w-[34rem]">
+    <article className="grid gap-6 p-8 items-center bg-white border-2 border-neutral-200 rounded-3xl shadow-gray-1 w-[28rem]">
       <fieldset className="grid gap-12 items-center w-full mb-6">
         <legend className="w-full mb-2">
           <h1 className="text-center font-black text-neutral-700 text-4xl mx-10">

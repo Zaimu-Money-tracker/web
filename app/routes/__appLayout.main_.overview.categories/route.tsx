@@ -1,7 +1,5 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import Category from "~/interfaces/entities/category.interface";
-import { EnvConfig } from "~/config/env.config";
 import AddButton from "~/components/common/zaimu/addButton";
 import { motion } from "motion/react";
 import NothingHere from "~/components/common/zaimu/NothingHere";
@@ -10,6 +8,14 @@ import BasicCard from "~/components/common/cards/basicCard";
 import TrashButton from "~/components/common/buttons/trashButton";
 import DeleteModal from "~/components/modal/deleteModal";
 import { MetaFunction } from "@remix-run/react";
+import Input from "~/components/form/input";
+import ColortInput from "~/components/form/colorInput";
+import { Colors } from "~/data/colors/colors.data";
+import {
+  createCategory,
+  deleteCategory,
+  getCategories,
+} from "~/services/zaimu/entities/categories";
 
 export const meta: MetaFunction = () => {
   return [
@@ -39,43 +45,58 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-const env = EnvConfig();
-
 export default function OverviewCategories() {
   const [categories, setCategories] = useState<Category[]>();
   const [show, setShow] = useState<boolean>(false);
   const [showDelete, setShowDelete] = useState<boolean>(false);
-  const [id, setId] = useState<string>("");
+  const [id, setId] = useState<string | undefined>("");
 
-  const getCategories = async () => {
-    await axios
-      .get(`${env.zaimu_api_url}/categories`, { withCredentials: true })
-      .then((res) => {
-        setCategories(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const handleGetCategories = async () => {
+    const data = await getCategories();
+
+    return setCategories(data);
   };
 
-  const deleteCategory = async (id: string) => {
-    await axios
-      .delete(`${env.zaimu_api_url}/categories/${id}`, {
-        withCredentials: true,
-      })
-      .then(() => {
-        setShow(false);
-        close();
-        getCategories();
-      })
-      .catch((err) => {
-        return console.log(err);
-      });
+  const handleDeleteCategory = async (id: string | undefined) => {
+    if (!id) return;
+
+    await deleteCategory(id);
+    setShow(false);
+    close();
+
+    return handleGetCategories();
+  };
+
+  const handleCreateCategory = async (data: {
+    [key: string]: FormDataEntryValue;
+  }) => {
+    await createCategory(data);
+    setShow(false);
+    close();
+
+    return handleGetCategories();
   };
 
   useEffect(() => {
-    getCategories();
+    handleGetCategories();
   }, []);
+
+  const categoriesInputs = [
+    <Input
+      key={"name"}
+      placeholder="Category name"
+      type="text"
+      name="name"
+      required
+    />,
+    <ColortInput
+      key={"color"}
+      placeholder="Category color"
+      name="color"
+      options={Colors}
+      required
+    />,
+  ];
 
   if (!categories) return <>Oops</>;
 
@@ -107,9 +128,9 @@ export default function OverviewCategories() {
                     y: 0,
                     transition: {
                       delay: index * 0.1,
-                      duration: 0.5,
+                      duration: 0.6,
                       type: "spring",
-                      bounce: 0.6,
+                      bounce: 0.5,
                     },
                   }}
                   exit={{ opacity: 0, y: -20 }}
@@ -151,10 +172,11 @@ export default function OverviewCategories() {
         <AddButton action={() => setShow(true)} />
       </BasicCard>
 
-      <div></div>
-
       <PostModal
-        getAction={getCategories}
+        title="New Category"
+        description="Keep your transactions in order with categories."
+        inputs={categoriesInputs}
+        submitAction={handleCreateCategory}
         open={show}
         close={() => setShow(false)}
       />
@@ -163,7 +185,7 @@ export default function OverviewCategories() {
         open={showDelete}
         target="Category"
         getAction={() => {
-          deleteCategory(id);
+          handleDeleteCategory(id);
           setShowDelete(false);
         }}
         close={() => setShowDelete(false)}

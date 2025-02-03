@@ -1,8 +1,8 @@
 import { AnimatePresence, motion } from "motion/react";
-import { useState } from "react";
-import Option from "~/interfaces/others/option.interface";
+import { useRef, useState } from "react";
+import ColorOption from "~/interfaces/others/colorOption.interface";
 
-export default function SelectInput({
+export default function ColorInput({
   name,
   required,
   options,
@@ -10,23 +10,30 @@ export default function SelectInput({
   placeholder: string;
   name: string;
   required?: boolean;
-  options: Option[];
+  options: ColorOption[];
 }) {
-  const [selected, setSelected] = useState<Option>();
+  const [selected, setSelected] = useState<ColorOption>();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const handleSelect = (option: Option) => {
+  const selectRef = useRef<HTMLDivElement>(null);
+
+  const handleSelect = (option: ColorOption) => {
     setSelected(option);
     setIsOpen(false);
   };
 
   return (
-    <div className="relative w-full bg">
+    <div className="relative w-full bg" ref={selectRef}>
       <button
+        id="select-button"
         type="button"
-        className="border-2 border-neutral-200 rounded-xl py-2 px-3 text-lg font-medium w-full text-neutral-500 outline-none focus:border-primary transition-all ease-in-out duration-200 flex justify-between items-center"
+        className="border-2 border-neutral-200 rounded-xl py-2 px-3 text-lg font-medium w-full cursor-pointer text-neutral-500 outline-none focus:border-primary transition-all ease-in-out duration-200 flex justify-between items-center"
         onClick={() => setIsOpen(!isOpen)}
-        onBlur={() => setIsOpen(false)}
+        onBlur={(e) => {
+          if (!selectRef.current?.contains(e.relatedTarget as Node)) {
+            setIsOpen(false);
+          }
+        }}
       >
         {selected ? (
           <div className="flex items-center gap-2">
@@ -44,17 +51,17 @@ export default function SelectInput({
       <AnimatePresence>
         {isOpen && (
           <motion.ul
-            className="absolute w-full border-2 border-neutral-200 rounded-xl bg-white mt-1 overflow-y-scroll max-h-56 mini-scroll-bar"
-            initial={{ opacity: 0, y: -10 }}
+            className="absolute w-full border-2 border-neutral-200 rounded-xl bg-white mt-1 overflow-y-scroll max-h-56 mini-scroll-bar z-50"
+            initial={{ opacity: 0, y: -10, pointerEvents: "auto" }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
+            exit={{ opacity: 0, y: -10, pointerEvents: "none" }}
             transition={{ type: "spring", duration: 0.4, bounce: 0.5 }}
           >
             {options.map((data, index) => (
               <button
                 key={index}
                 className="flex items-center gap-2 rounded-lg px-2 py-1 hover:bg-neutral-100 cursor-pointer w-full transition-all ease-in-out duration-300"
-                onClick={() => handleSelect(data)}
+                onMouseUp={() => handleSelect(data)}
                 type="button"
               >
                 <div

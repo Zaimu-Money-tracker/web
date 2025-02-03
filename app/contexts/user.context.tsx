@@ -1,9 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import User from "~/interfaces/user/user.interface";
-import axios from "axios";
-import { EnvConfig } from "~/config/env.config";
-
-const env = EnvConfig();
+import { getUser } from "~/services/zaimu/user/user";
 
 interface DataContextType {
   user: User;
@@ -16,14 +13,8 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User>();
 
   const fetchData = async () => {
-    await axios
-      .get(`${env.zaimu_api_url}/user`, { withCredentials: true })
-      .then((res) => {
-        return setUser(res.data);
-      })
-      .catch((err) => {
-        return console.log(err);
-      });
+    const data = await getUser();
+    setUser(data);
   };
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import Option from "~/interfaces/others/option.interface";
+import Option from "~/interfaces/others/colorOption.interface";
 
 export const Colors: Option[] = [
   { name: "Red", value: "#ff6467" },

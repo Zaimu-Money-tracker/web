@@ -1,23 +1,22 @@
 import { Form } from "@remix-run/react";
-import axios from "axios";
-import { EnvConfig } from "~/config/env.config";
-import Input from "../form/input";
 import EntitiesForm from "../form/entitiesForm";
-import SelectInput from "../form/selectInput";
-import { Colors } from "~/data/colors/colors.data";
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useState } from "react";
-
-const env = EnvConfig();
+import { ReactNode, useEffect, useState } from "react";
 
 export default function PostModal({
   open,
-  getAction,
+  inputs,
+  title,
+  description,
   close,
+  submitAction,
 }: {
   open: boolean;
-  getAction: () => void;
+  inputs: ReactNode[];
+  title: string;
+  description: string;
   close: () => void;
+  submitAction: (data: { [key: string]: FormDataEntryValue }) => void;
 }) {
   const [show, setShow] = useState<boolean>(false);
 
@@ -30,41 +29,8 @@ export default function PostModal({
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
 
-    await axios
-      .post(
-        `${env.zaimu_api_url}/categories`,
-        {
-          name: data.name,
-          color: data.color,
-        },
-        { withCredentials: true }
-      )
-      .then(() => {
-        setShow(false);
-        close();
-        getAction();
-      })
-      .catch((err) => {
-        return console.log(err);
-      });
+    submitAction(data);
   };
-
-  const categoriesInputs = [
-    <Input
-      key={"name"}
-      placeholder="Category name"
-      type="text"
-      name="name"
-      required
-    />,
-    <SelectInput
-      key={"color"}
-      placeholder="Category color"
-      name="color"
-      options={Colors}
-      required
-    />,
-  ];
 
   return (
     <AnimatePresence>
@@ -79,9 +45,9 @@ export default function PostModal({
         >
           <Form method="post" onSubmit={handleSubmit}>
             <EntitiesForm
-              title="New category"
-              description="Keep your transactions in order with categories."
-              inputs={categoriesInputs}
+              title={title}
+              description={description}
+              inputs={inputs}
               cancelAction={() => {
                 setShow(false);
                 close();

@@ -2,11 +2,8 @@ import { Form, useNavigate } from "@remix-run/react";
 import { motion } from "motion/react";
 import FormCard from "./formCard";
 import { login } from "~/data/form/auth.data";
-import axios from "axios";
 import { path } from "~/data/paths/paths.data";
-import { EnvConfig } from "~/config/env.config";
-
-const env = EnvConfig();
+import { loginUser } from "~/services/zaimu/user/user";
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -16,21 +13,8 @@ export default function LoginForm() {
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
 
-    await axios
-      .post(
-        `${env.zaimu_api_url}/login`,
-        {
-          email: data.email,
-          password: data.password,
-        },
-        { withCredentials: true }
-      )
-      .then(() => {
-        return navigate(path.app.main);
-      })
-      .catch((err) => {
-        return console.log(err);
-      });
+    loginUser(data);
+    return navigate(path.app.main);
   };
 
   return (

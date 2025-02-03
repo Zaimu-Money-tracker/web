@@ -3,11 +3,8 @@ import { motion } from "motion/react";
 import { useState } from "react";
 import FormCard from "~/components/form/formCard";
 import Input from "./input";
-import axios from "axios";
 import { path } from "~/data/paths/paths.data";
-import { EnvConfig } from "~/config/env.config";
-
-const env = EnvConfig();
+import { createUser } from "~/services/zaimu/user/user";
 
 export default function RegisterForm() {
   const navigate = useNavigate();
@@ -104,39 +101,14 @@ export default function RegisterForm() {
     postData(data, finalData);
   };
 
-  const postData = async (
+  const postData = (
     data: { [key: string]: FormDataEntryValue },
     finalData: { emailNotification: boolean; whatsAppReminder: boolean }
   ) => {
     if (!firstForm) return setFormRender(0);
 
-    await axios
-      .post(
-        `${env.zaimu_api_url}/register`,
-        {
-          name: firstForm.firstName,
-          lastName: firstForm.lastName,
-          profession: firstForm.profession,
-          email: firstForm.email,
-          password: firstForm.password,
-          settings: {
-            language: data.language,
-            currency: firstForm.currency,
-            appearance: data.appearance,
-            notifications: {
-              email: finalData.emailNotification,
-              whatsApp: finalData.whatsAppReminder,
-            },
-          },
-        },
-        { withCredentials: true }
-      )
-      .then(() => {
-        return navigate(path.app.main);
-      })
-      .catch((err) => {
-        return console.log(err);
-      });
+    createUser(data, firstForm, finalData);
+    return navigate(path.app.main);
   };
 
   return (

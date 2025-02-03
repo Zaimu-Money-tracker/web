@@ -46,7 +46,8 @@ export default function DeleteModal({
                   </h1>
                 </legend>
                 <p className="text-center font-medium text-neutral-500 w-full">
-                  Are you sure you wanna delete this {target}?
+                  Sure you wanna delete this {target}? There&apos;s no going
+                  back!
                 </p>
               </div>
 

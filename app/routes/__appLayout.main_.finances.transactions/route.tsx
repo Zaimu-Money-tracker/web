@@ -1,12 +1,22 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import Transaction from "~/interfaces/entities/transaction.interface";
-import { EnvConfig } from "~/config/env.config";
 import TransactionItem from "~/components/common/zaimu/transaction";
 import { motion } from "motion/react";
 import AddButton from "~/components/common/zaimu/addButton";
 import NothingHere from "~/components/common/zaimu/NothingHere";
 import { MetaFunction } from "@remix-run/react";
+import PostModal from "~/components/modal/postModal";
+import Input from "~/components/form/input";
+import SelectTypeInput from "~/components/form/SelectTypeInput";
+import { TransactionTypes } from "~/data/inputs/TransactionTypes";
+import CategoriesInput from "~/components/form/categoriesInput";
+import DeleteModal from "~/components/modal/deleteModal";
+import AmountInput from "~/components/form/amountInput";
+import {
+  createTransaction,
+  deleteTransaction,
+  getTransactions,
+} from "~/services/zaimu/entities/transactions";
 
 export const meta: MetaFunction = () => {
   return [
@@ -36,25 +46,64 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-const env = EnvConfig();
-
 export default function Transactions() {
   const [transactions, setTransactions] = useState<Transaction[]>();
+  const [show, setShow] = useState<boolean>(false);
+  const [showDelete, setShowDelete] = useState<boolean>(false);
+  const [id, setId] = useState<string>("");
+
+  const handleGetTransactions = async () => {
+    const data = await getTransactions();
+
+    return setTransactions(data);
+  };
+
+  const handleCreateTransaction = async (data: {
+    [key: string]: FormDataEntryValue;
+  }) => {
+    await createTransaction(data);
+    setShow(false);
+    close();
+
+    return handleGetTransactions();
+  };
+
+  const handleDeleteTransaction = async (id: string) => {
+    await deleteTransaction(id);
+
+    handleGetTransactions();
+    return setShowDelete(false);
+  };
 
   useEffect(() => {
-    const getTransactions = async () => {
-      await axios
-        .get(`${env.zaimu_api_url}/transactions`, { withCredentials: true })
-        .then((res) => {
-          setTransactions(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-
-    getTransactions();
+    handleGetTransactions();
   }, []);
+
+  const categoriesInputs = [
+    <div key={"info"} className="flex items-center justify-center gap-4">
+      <Input
+        key={"name"}
+        placeholder="Transaction name"
+        type="text"
+        name="name"
+        required
+      />
+      <SelectTypeInput
+        key={"type"}
+        name="type"
+        options={TransactionTypes}
+        required
+      />
+    </div>,
+
+    <AmountInput
+      key={"amount"}
+      placeholder="Transaction amount"
+      name="amount"
+      required
+    />,
+    <CategoriesInput key={"category"} name="category" required />,
+  ];
 
   if (!transactions) return <>There&apos;s no transactions</>;
 
@@ -73,26 +122,41 @@ export default function Transactions() {
       {transactions.length === 0 ? (
         <NothingHere />
       ) : (
-        <ul className="flex flex-col gap-3">
+        <ul className="flex flex-col gap-3 h-full">
           {transactions.map((data, index) => {
-            const createdAt = new Date(data.createdAt);
-
             return (
               <TransactionItem
                 key={index}
-                name={data.name}
-                category={data.category.name}
-                date={createdAt}
-                amount={data.amount}
-                type={data.type}
+                transaction={data}
                 delay={index}
+                showDelete={(state) => setShowDelete(state)}
+                searchId={(id) => setId(id)}
               />
             );
           })}
         </ul>
       )}
 
-      <AddButton />
+      <AddButton action={() => setShow(true)} />
+
+      <PostModal
+        title="New Transaction"
+        description="A new expense? A new income? Keep everything tracked!"
+        inputs={categoriesInputs}
+        open={show}
+        submitAction={handleCreateTransaction}
+        close={() => setShow(false)}
+      />
+
+      <DeleteModal
+        open={showDelete}
+        target="Transaction"
+        getAction={() => {
+          handleDeleteTransaction(id);
+          setShowDelete(false);
+        }}
+        close={() => setShowDelete(false)}
+      />
     </section>
   );
 }
