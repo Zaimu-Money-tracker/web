@@ -95,7 +95,9 @@ export default function OverviewIncomes() {
   useEffect(() => {
     handleGetExpenses();
     handleGetIncomes();
+  }, []);
 
+  useEffect(() => {
     if (!transactions) return;
     setIncomes(transactions.reduce((acc, item) => acc + item.amount, 0));
 
