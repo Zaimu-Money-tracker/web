@@ -172,6 +172,10 @@ export default function OverviewCategories() {
         <AddButton action={() => setShow(true)} />
       </BasicCard>
 
+      <BasicCard>
+        <div className="h-full"></div>
+      </BasicCard>
+
       <PostModal
         title="New Category"
         description="Keep your transactions in order with categories."

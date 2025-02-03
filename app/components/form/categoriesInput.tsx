@@ -115,7 +115,7 @@ export default function CategoriesInput({
             transition={{ type: "spring", duration: 0.4, bounce: 0.5 }}
           >
             {categories &&
-              (categories.length > 1 ? (
+              (categories.length > 0 ? (
                 categories.map((data, index) => (
                   <li key={index}>
                     <button
