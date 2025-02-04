@@ -177,23 +177,37 @@ export default function OverviewCategories() {
                   </div>
 
                   <span className="text-neutral-500 font-semibold">
-                    {total && category._id
+                    {total
                       ? FormatNumber(
-                          (parseFloat(total[category._id]?.toString() || "0") /
+                          (parseFloat(
+                            total[category._id || 0]?.toString() || "0"
+                          ) /
                             totalIncomes) *
                             100
-                        )
-                      : "0"}
+                        ) === "0"
+                        ? "--- "
+                        : FormatNumber(
+                            (parseFloat(total[category._id || 0].toString()) /
+                              totalIncomes) *
+                              100
+                          )
+                      : "---"}
                     %
                   </span>
 
                   <span className="text-neutral-600 font-semibold min-w-36 text-end">
                     $
-                    {total && category._id
+                    {total
                       ? FormatNumber(
-                          parseFloat(total[category._id]?.toString() || "0")
-                        )
-                      : 0}
+                          parseFloat(
+                            total[category._id || 0]?.toString() || "0"
+                          )
+                        ) === "0"
+                        ? " ---"
+                        : FormatNumber(
+                            parseFloat(total[category._id || 0].toString())
+                          )
+                      : " ---"}
                   </span>
 
                   <div className="absolute flex opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto w-full h-full bg-linear-to-r from-70% to-90% from-neutral-400/20 to-neutral-300 inset-0 rounded-full items-center justify-end px-1.25 transition-all ease-in-out duration-300">
