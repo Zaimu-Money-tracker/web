@@ -16,6 +16,12 @@ import {
   deleteCategory,
   getCategories,
 } from "~/services/zaimu/entities/categories";
+import Transaction from "~/interfaces/entities/transaction.interface";
+import {
+  getExpenses,
+  getIncomes,
+} from "~/services/zaimu/entities/transactions";
+import FormatNumber from "~/utils/formatNumber";
 
 export const meta: MetaFunction = () => {
   return [
@@ -47,13 +53,22 @@ export const meta: MetaFunction = () => {
 
 export default function OverviewCategories() {
   const [categories, setCategories] = useState<Category[]>();
+  const [expenses, setExpenses] = useState<Transaction[]>();
+  const [incomes, setIncomes] = useState<Transaction[]>();
   const [show, setShow] = useState<boolean>(false);
   const [showDelete, setShowDelete] = useState<boolean>(false);
   const [id, setId] = useState<string | undefined>("");
 
+  const [total, setTotal] = useState<{ [key: string]: number }>();
+  const [totalIncomes, setTotalIncomes] = useState<number>(0);
+
   const handleGetCategories = async () => {
     const data = await getCategories();
+    const expenses = await getExpenses();
+    const incomes = await getIncomes();
 
+    setExpenses(expenses);
+    setIncomes(incomes);
     return setCategories(data);
   };
 
@@ -80,6 +95,20 @@ export default function OverviewCategories() {
   useEffect(() => {
     handleGetCategories();
   }, []);
+
+  useEffect(() => {
+    if (!expenses) return;
+    if (!incomes) return;
+
+    const totals = expenses.reduce((acc: { [key: string]: number }, item) => {
+      const categoryId = item.category._id!;
+      acc[categoryId] = (acc[categoryId] || 0) + item.amount;
+      return acc;
+    }, {});
+
+    setTotal(totals);
+    setTotalIncomes(incomes.reduce((acc, item) => acc + item.amount, 0));
+  }, [expenses, incomes]);
 
   const categoriesInputs = [
     <Input
@@ -147,10 +176,24 @@ export default function OverviewCategories() {
                     </span>
                   </div>
 
-                  <span className="text-neutral-500 font-semibold">0%</span>
+                  <span className="text-neutral-500 font-semibold">
+                    {total && category._id
+                      ? FormatNumber(
+                          (parseFloat(total[category._id]?.toString() || "0") /
+                            totalIncomes) *
+                            100
+                        )
+                      : "0"}
+                    %
+                  </span>
 
                   <span className="text-neutral-600 font-semibold min-w-36 text-end">
-                    $ ---
+                    $
+                    {total && category._id
+                      ? FormatNumber(
+                          parseFloat(total[category._id]?.toString() || "0")
+                        )
+                      : 0}
                   </span>
 
                   <div className="absolute flex opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto w-full h-full bg-linear-to-r from-70% to-90% from-neutral-400/20 to-neutral-300 inset-0 rounded-full items-center justify-end px-1.25 transition-all ease-in-out duration-300">
