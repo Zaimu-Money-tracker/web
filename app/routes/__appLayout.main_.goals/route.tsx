@@ -1,12 +1,14 @@
-import axios from "axios";
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import AddButton from "~/components/common/zaimu/addButton";
 import NothingHere from "~/components/common/zaimu/NothingHere";
-import { EnvConfig } from "~/config/env.config";
 import Goal from "~/interfaces/entities/goal.interface";
 import FormatNumber from "~/utils/formatNumber";
 import { MetaFunction } from "@remix-run/react";
+import { createGoal, getGoals } from "~/services/zaimu/entities/goals";
+import PostModal from "~/components/modal/postModal";
+import Input from "~/components/form/input";
+import AmountInput from "~/components/form/amountInput";
 
 export const meta: MetaFunction = () => {
   return [
@@ -36,21 +38,45 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-const env = EnvConfig();
-
 export default function Goals() {
   const [goals, setGoals] = useState<Goal[]>();
+  const [show, setShow] = useState<boolean>(false);
+
+  const handleGetGoals = async () => {
+    const data = await getGoals();
+    return setGoals(data);
+  };
+
+  const handleCreateGoal = async (data: {
+    [key: string]: FormDataEntryValue;
+  }) => {
+    await createGoal(data);
+    setShow(false);
+    close();
+
+    return handleGetGoals();
+  };
 
   useEffect(() => {
-    axios
-      .get(`${env.zaimu_api_url}/goals`, { withCredentials: true })
-      .then((res) => {
-        setGoals(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    handleGetGoals();
   }, []);
+
+  const goalsInputs = [
+    <Input
+      key={"name"}
+      placeholder="Goal name"
+      type="text"
+      name="name"
+      required
+    />,
+
+    <AmountInput
+      key={"targetAmount"}
+      placeholder="Goal target amount"
+      name="targetAmount"
+      required
+    />,
+  ];
 
   if (!goals) return <>No goals</>;
 
@@ -69,7 +95,7 @@ export default function Goals() {
       {goals.length === 0 ? (
         <NothingHere />
       ) : (
-        <ul className="grid grid-cols-2 gap-4">
+        <ul className="grid grid-cols-2 gap-4 h-full">
           {goals.map((data, index) => {
             const percent = FormatNumber(
               (data.progress / data.targetAmount) * 100
@@ -77,7 +103,7 @@ export default function Goals() {
 
             return (
               <li
-                className="flex flex-col gap-2 bg-neutral-200/40 rounded-3xl p-4"
+                className="flex flex-col gap-2 bg-white shadow-gray-1 rounded-3xl p-4 h-fit"
                 key={index}
               >
                 <div>
@@ -105,7 +131,7 @@ export default function Goals() {
                       </span>
                     </div>
 
-                    <div className="bg-neutral-200 w-full rounded-full h-3 relative">
+                    <div className="bg-neutral-100 w-full rounded-full h-3 relative">
                       <div
                         className="bg-sky-500 absolute inset-0 w-54 rounded-full"
                         style={{ width: `${percent}%` }}
@@ -119,7 +145,16 @@ export default function Goals() {
         </ul>
       )}
 
-      <AddButton />
+      <AddButton action={() => setShow(true)} />
+
+      <PostModal
+        title="New Transaction"
+        description="A new expense? A new income? Keep everything tracked!"
+        inputs={goalsInputs}
+        open={show}
+        submitAction={handleCreateGoal}
+        close={() => setShow(false)}
+      />
     </section>
   );
 }

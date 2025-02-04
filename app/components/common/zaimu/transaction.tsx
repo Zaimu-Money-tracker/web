@@ -24,7 +24,7 @@ export default function TransactionItem({
         opacity: 1,
         y: 0,
         transition: {
-          delay: delay * 0.1,
+          delay: delay * 0.03,
           duration: 0.6,
           type: "spring",
           bounce: 0.5,
