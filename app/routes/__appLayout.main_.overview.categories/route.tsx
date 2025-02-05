@@ -22,6 +22,7 @@ import {
   getIncomes,
 } from "~/services/zaimu/entities/transactions";
 import FormatNumber from "~/utils/formatNumber";
+import DoughnutChart from "~/components/charts/doughnutChart";
 
 export const meta: MetaFunction = () => {
   return [
@@ -61,6 +62,7 @@ export default function OverviewCategories() {
 
   const [total, setTotal] = useState<{ [key: string]: number }>();
   const [totalIncomes, setTotalIncomes] = useState<number>(0);
+  const [totalExpenses, setTotalExpenses] = useState<number>(0);
 
   const handleGetCategories = async () => {
     const data = await getCategories();
@@ -101,13 +103,14 @@ export default function OverviewCategories() {
     if (!incomes) return;
 
     const totals = expenses.reduce((acc: { [key: string]: number }, item) => {
-      const categoryId = item.category._id!;
+      const categoryId = item.category?._id ?? 0;
       acc[categoryId] = (acc[categoryId] || 0) + item.amount;
       return acc;
     }, {});
 
     setTotal(totals);
     setTotalIncomes(incomes.reduce((acc, item) => acc + item.amount, 0));
+    setTotalExpenses(expenses.reduce((acc, item) => acc + item.amount, 0));
   }, [expenses, incomes]);
 
   const categoriesInputs = [
@@ -177,27 +180,29 @@ export default function OverviewCategories() {
                   </div>
 
                   <span className="text-neutral-500 font-semibold">
-                    {total
+                    {total && category._id
                       ? FormatNumber(
                           (parseFloat(
                             total[category._id || 0]?.toString() || "0"
                           ) /
-                            totalIncomes) *
-                            100
+                            totalIncomes ===
+                          0
+                            ? 0
+                            : totalIncomes) * 100
                         ) === "0"
                         ? "--- "
                         : FormatNumber(
-                            (parseFloat(total[category._id || 0].toString()) /
+                            (parseFloat(total[category._id || 0]?.toString()) /
                               totalIncomes) *
                               100
                           )
-                      : "---"}
+                      : "--- "}
                     %
                   </span>
 
                   <span className="text-neutral-600 font-semibold min-w-36 text-end">
                     $
-                    {total
+                    {total && category._id
                       ? FormatNumber(
                           parseFloat(
                             total[category._id || 0]?.toString() || "0"
@@ -205,7 +210,7 @@ export default function OverviewCategories() {
                         ) === "0"
                         ? " ---"
                         : FormatNumber(
-                            parseFloat(total[category._id || 0].toString())
+                            parseFloat(total[category._id || 0]?.toString())
                           )
                       : " ---"}
                   </span>
@@ -230,7 +235,22 @@ export default function OverviewCategories() {
       </BasicCard>
 
       <BasicCard>
-        <div className="h-full"></div>
+        <motion.span
+          className="font-bold text-neutral-700 text-2xl self-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          Money expended in categories
+        </motion.span>
+
+        <DoughnutChart
+          data={categories}
+          incomes={totalIncomes}
+          expenses={totalExpenses}
+          total={total}
+        />
       </BasicCard>
 
       <PostModal

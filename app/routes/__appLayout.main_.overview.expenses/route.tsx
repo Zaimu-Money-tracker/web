@@ -227,7 +227,6 @@ export default function OverviewIncomes() {
           <div className="flex gap-4 items-center">
             <CircularProgress
               size={110}
-              color={bigestExpense?.category.color ?? "#ff8d35"}
               percentage={
                 bigestExpense
                   ? parseFloat(
@@ -272,7 +271,6 @@ export default function OverviewIncomes() {
           <div className="flex gap-4 items-center">
             <CircularProgress
               size={110}
-              color={lowestExpense?.category.color ?? "#ff8d35"}
               percentage={
                 lowestExpense
                   ? parseFloat(

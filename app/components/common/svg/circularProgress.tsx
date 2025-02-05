@@ -1,10 +1,8 @@
 export default function CircularProgress({
   size,
-  color,
   percentage,
 }: {
   size: number;
-  color: string;
   percentage: number;
 }) {
   const radius = (size - 12) / 2;
@@ -25,7 +23,7 @@ export default function CircularProgress({
         />
         <circle
           className="transition-all duration-300 ease-in-out"
-          stroke={color}
+          stroke={"#ff8d35"}
           strokeWidth={12}
           strokeDasharray={circumference}
           strokeDashoffset={offset}
