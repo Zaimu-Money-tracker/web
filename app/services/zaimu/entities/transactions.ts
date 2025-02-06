@@ -21,6 +21,13 @@ export async function createTransaction(data: {
   return response.data;
 }
 
+export async function createTransactionWithPayload(
+  payload: TransactionPayload
+) {
+  const response = await api.post("/transactions", payload);
+  return response.data;
+}
+
 export async function getTransactions() {
   const response = await api.get("/transactions");
   return response.data;

@@ -4,11 +4,17 @@ import ShortcutPayload from "~/interfaces/payloads/entities/shortcutPayload.inte
 export async function createShortcut(data: {
   [key: string]: FormDataEntryValue;
 }) {
+  const amount = parseFloat(
+    data.amount.toString().replaceAll(",", "").replace("$", "")
+  );
+
   const payload: ShortcutPayload = {
     name: data.name.toString(),
-    type: data.type.toString(),
-    amount: parseFloat(data.amount.toString()),
+    type: data.type.toString().toLowerCase(),
+    amount: amount,
   };
+
+  if (data.category) payload.category = data.category.toString();
 
   const response = await api.post("/shortcuts", payload);
 
