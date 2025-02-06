@@ -1,4 +1,8 @@
-import { financesLinks, overviewLinks } from "~/data/zaimu/links.data";
+import {
+  actionsLinks,
+  financesLinks,
+  overviewLinks,
+} from "~/data/zaimu/links.data";
 import NavBar from "./navBar";
 import { useLocation } from "@remix-run/react";
 import { AnimatePresence, motion } from "motion/react";
@@ -19,6 +23,8 @@ export default function RenderNavBar() {
             <NavBar buttons={financesLinks} />
           ) : location.pathname.includes("/overview") ? (
             <NavBar buttons={overviewLinks} />
+          ) : location.pathname.includes("/actions") ? (
+            <NavBar buttons={actionsLinks} />
           ) : (
             <></>
           )}

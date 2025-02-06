@@ -7,9 +7,9 @@ export default function NothingHere() {
         <ZaimuBlackLogo w={350} h={350} opacity={0.1} />
       </div>
 
-      <span className="text-2xl text-neutral-400/60 font-semibold text-center">
+      <p className="text-2xl text-neutral-400/60 font-semibold text-center">
         This place feels a little empty... why not try creating something first?
-      </span>
+      </p>
     </div>
   );
 }

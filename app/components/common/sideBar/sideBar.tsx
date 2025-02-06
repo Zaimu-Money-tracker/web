@@ -62,8 +62,8 @@ export default function SideBar() {
             <SideBarButton
               text="Actions"
               icon={<TiFlashOutline className="w-5 h-5" />}
-              link={path.app.actions}
-              isActive={location.pathname === path.app.actions}
+              link={path.app.actions.shortcuts}
+              isActive={location.pathname.includes("/main/actions")}
             />
             <SideBarButton
               text="Goals"

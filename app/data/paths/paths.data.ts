@@ -26,7 +26,10 @@ export const path: Paths = {
       incomes: "/main/finances/incomes",
       savings: "/main/finances/savings",
     },
-    actions: "/main/actions",
+    actions: {
+      shortcuts: "/main/actions/shortcuts",
+      recurring: "/main/actions/recurring",
+    },
     goals: "/main/goals",
     settings: "/main/settings",
   },

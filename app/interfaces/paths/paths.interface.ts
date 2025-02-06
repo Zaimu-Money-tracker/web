@@ -24,7 +24,10 @@ export default interface Paths {
       incomes: string;
       savings: string;
     };
-    actions: string;
+    actions: {
+      shortcuts: string;
+      recurring: string;
+    };
     goals: string;
     settings: string;
   };

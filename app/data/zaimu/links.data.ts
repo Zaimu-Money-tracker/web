@@ -15,8 +15,8 @@ export const overviewLinks = [
 ];
 
 export const actionsLinks = [
-  { text: "Shortcuts", link: path.app.finances.transactions },
-  { text: "Recurring", link: path.app.finances.expenses },
+  { text: "Shortcuts", link: path.app.actions.shortcuts },
+  { text: "Recurring", link: path.app.actions.recurring },
 ];
 
 export const settingsLinks = [
