@@ -1,13 +1,17 @@
 export default function CircularProgress({
   size,
   percentage,
+  color,
 }: {
   size: number;
   percentage: number;
+  color?: string;
 }) {
-  const radius = (size - 12) / 2;
+  const radius = (size - size / 8) / 2;
   const circumference = radius * 2 * Math.PI;
   const offset = circumference - (percentage / 100) * circumference;
+
+  color = color ? color : "#ff8d35";
 
   return (
     <div className="relative inline-flex items-center justify-center">
@@ -15,7 +19,7 @@ export default function CircularProgress({
         <circle
           className="transition-all duration-300 ease-in-out"
           stroke={"#f3f3f3"}
-          strokeWidth={12}
+          strokeWidth={size / 8}
           fill="none"
           r={radius}
           cx={size / 2}
@@ -23,8 +27,8 @@ export default function CircularProgress({
         />
         <circle
           className="transition-all duration-300 ease-in-out"
-          stroke={"#ff8d35"}
-          strokeWidth={12}
+          stroke={color}
+          strokeWidth={size / 8}
           strokeDasharray={circumference}
           strokeDashoffset={offset}
           strokeLinecap="round"
