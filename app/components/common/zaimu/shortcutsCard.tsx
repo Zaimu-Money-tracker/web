@@ -58,8 +58,8 @@ export default function ShortcutsCard() {
       </motion.header>
 
       <div className="flex flex-col h-full">
-        <ul className="flex flex-col h-full max-h-[357px]">
-          {shortcuts.map((data, index) => {
+        <ul className="flex flex-col h-full max-h-[357px] gap-4 overflow-x-hidden overflow-y-scroll mini-scroll-bar pr-2 relative">
+          {shortcuts.slice(0, 4).map((data, index) => {
             return (
               <li
                 className="flex w-full justify-between bg-neutral-100 p-3 rounded-2xl items-center"

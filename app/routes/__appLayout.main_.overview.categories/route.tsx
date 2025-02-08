@@ -152,7 +152,7 @@ export default function OverviewCategories() {
             {categories?.map((category, index) => {
               return (
                 <motion.li
-                  className="flex justify-between bg-neutral-100 p-1.5 rounded-full w-full h-fit items-center pr-2.5 relative group"
+                  className="flex justify-between bg-neutral-100 p-1.5 rounded-full w-full h-fit items-center pr-2.5 relative group overflow-hidden"
                   key={index}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{
@@ -215,7 +215,7 @@ export default function OverviewCategories() {
                       : " ---"}
                   </span>
 
-                  <div className="absolute flex opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto w-full h-full bg-linear-to-r from-70% to-90% from-neutral-400/20 to-neutral-300 inset-0 rounded-full items-center justify-end px-1.25 transition-all ease-in-out duration-300">
+                  <div className="absolute flex opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto w-full h-full bg-linear-to-r from-black/5 to-black/20 backdrop-blur-[0.5px] inset-0 items-center justify-end px-4 transition-all ease-in-out duration-300">
                     <TrashButton
                       w="w-4"
                       h="h-4"

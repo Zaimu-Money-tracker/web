@@ -12,7 +12,7 @@ export default function TrashButton({
 }) {
   return (
     <motion.button
-      className="flex w-fit h-fit p-2 rounded-full bg-red cursor-pointer"
+      className="flex w-fit h-fit p-2 rounded-full bg-red cursor-pointer shadow-red"
       whileHover={{ scale: 1.08 }}
       whileTap={{ scale: 0.95 }}
       onClick={action}

@@ -18,7 +18,7 @@ export default function TransactionItem({
   const createdAt = new Date(transaction.createdAt);
   return (
     <motion.li
-      className="flex relative justify-between items-center bg-white shadow-gray-1 rounded-2xl pl-2 pr-4 py-2 group"
+      className="flex relative justify-between items-center bg-white shadow-mini-gray rounded-2xl pl-2 pr-4 py-2 group overflow-hidden min-h-max"
       initial={{ opacity: 0, y: 20 }}
       animate={{
         opacity: 1,
@@ -81,7 +81,7 @@ export default function TransactionItem({
         </span>
       )}
 
-      <div className="absolute flex opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto w-full h-full bg-linear-to-r from-70% to-90% from-neutral-400/20 to-neutral-300 inset-0 rounded-2xl items-center justify-end px-4 transition-all ease-in-out duration-300">
+      <div className="absolute flex opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto w-full h-full bg-linear-to-r from-black/5 to-black/20 backdrop-blur-[0.5px] inset-0 items-center justify-end px-4 transition-all ease-in-out duration-300">
         <TrashButton
           w="w-5"
           h="h-5"

@@ -1,12 +1,12 @@
-import Goal from "~/interfaces/entities/goal.interface";
 import { api } from "../api";
+import GoalPayload from "~/interfaces/payloads/entities/goalPayload.interface";
 
 export async function createGoal(data: { [key: string]: FormDataEntryValue }) {
   const targetAmount = parseFloat(
     data.targetAmount.toString().replaceAll(",", "").replace("$", "")
   );
 
-  const payload: Goal = {
+  const payload: GoalPayload = {
     name: data.name.toString(),
     progress: 0,
     targetAmount: targetAmount,

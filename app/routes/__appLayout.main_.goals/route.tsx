@@ -5,10 +5,16 @@ import NothingHere from "~/components/common/zaimu/NothingHere";
 import Goal from "~/interfaces/entities/goal.interface";
 import FormatNumber from "~/utils/formatNumber";
 import { MetaFunction } from "@remix-run/react";
-import { createGoal, getGoals } from "~/services/zaimu/entities/goals";
+import {
+  createGoal,
+  deleteGoal,
+  getGoals,
+} from "~/services/zaimu/entities/goals";
 import PostModal from "~/components/modal/postModal";
 import Input from "~/components/form/input";
 import AmountInput from "~/components/form/amountInput";
+import TrashButton from "~/components/common/buttons/trashButton";
+import DeleteModal from "~/components/modal/deleteModal";
 
 export const meta: MetaFunction = () => {
   return [
@@ -41,6 +47,8 @@ export const meta: MetaFunction = () => {
 export default function Goals() {
   const [goals, setGoals] = useState<Goal[]>();
   const [show, setShow] = useState<boolean>(false);
+  const [showDelete, setShowDelete] = useState<boolean>(false);
+  const [id, setId] = useState<string>("");
 
   const handleGetGoals = async () => {
     const data = await getGoals();
@@ -55,6 +63,13 @@ export default function Goals() {
     close();
 
     return handleGetGoals();
+  };
+
+  const handleDeleteGoal = async (id: string) => {
+    await deleteGoal(id);
+    handleGetGoals();
+
+    return setShowDelete(false);
   };
 
   useEffect(() => {
@@ -102,18 +117,31 @@ export default function Goals() {
             );
 
             return (
-              <li
-                className="flex flex-col gap-2 bg-white shadow-gray-1 rounded-3xl p-4 h-fit"
+              <motion.li
+                className="flex flex-col gap-2 bg-white shadow-gray-1 rounded-3xl p-4 h-fit relative group overflow-hidden"
                 key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    delay: index * 0.03,
+                    duration: 0.6,
+                    type: "spring",
+                    bounce: 0.5,
+                  },
+                }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
               >
-                <div>
+                <div className="flex w-full justify-between">
                   <span className="font-bold text-sky-500 text-4xl">
                     {data.name}
                   </span>
                 </div>
 
                 <div className="flex gap-4 w-full items-center">
-                  <div className="w-fit h-fit bg-neutral-200 rounded-xl p-2">
+                  <div className="w-fit h-fit bg-neutral-100 rounded-xl p-2">
                     <img src="" alt="" width={50} height={50} />
                   </div>
 
@@ -139,7 +167,18 @@ export default function Goals() {
                     </div>
                   </div>
                 </div>
-              </li>
+
+                <div className="absolute flex opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto w-full h-full bg-linear-to-r from-black/5 to-black/20 backdrop-blur-[1px] inset-0 items-center justify-end px-4 transition-all ease-in-out duration-300">
+                  <TrashButton
+                    w="w-5"
+                    h="h-5"
+                    action={() => {
+                      setShowDelete(true);
+                      setId(data._id);
+                    }}
+                  />
+                </div>
+              </motion.li>
             );
           })}
         </ul>
@@ -154,6 +193,16 @@ export default function Goals() {
         open={show}
         submitAction={handleCreateGoal}
         close={() => setShow(false)}
+      />
+
+      <DeleteModal
+        open={showDelete}
+        target="Transaction"
+        getAction={() => {
+          handleDeleteGoal(id);
+          setShowDelete(false);
+        }}
+        close={() => setShowDelete(false)}
       />
     </section>
   );

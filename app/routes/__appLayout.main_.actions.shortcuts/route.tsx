@@ -1,28 +1,59 @@
+import { MetaFunction } from "@remix-run/react";
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
+import TrashButton from "~/components/common/buttons/trashButton";
 import AddButton from "~/components/common/zaimu/addButton";
 import NothingHere from "~/components/common/zaimu/NothingHere";
 import AmountInput from "~/components/form/amountInput";
 import CategoriesInput from "~/components/form/categoriesInput";
 import Input from "~/components/form/input";
 import SelectTypeInput from "~/components/form/SelectTypeInput";
+import DeleteModal from "~/components/modal/deleteModal";
 import PostModal from "~/components/modal/postModal";
 import { TransactionTypes } from "~/data/inputs/TransactionTypes";
 import Shortcut from "~/interfaces/entities/shortcut.interface";
 import TransactionPayload from "~/interfaces/payloads/entities/transactionPayload.interface";
 import {
   createShortcut,
-  // deleteShortcut,
+  deleteShortcut,
   getShortcuts,
 } from "~/services/zaimu/entities/shortcuts";
 import { createTransactionWithPayload } from "~/services/zaimu/entities/transactions";
 import FormatNumber from "~/utils/formatNumber";
 
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Zaimu - Actions" },
+    {
+      name: "description",
+      content:
+        "Zaimu is the easiest way to track your money, take control of your finances and save to achieve your dreams.",
+    },
+    { property: "og:url", content: "https://zaimu-finance.pages.dev/" },
+    { property: "og:type", content: "website" },
+    { property: "og:tittle", content: "Zaimu - Manage your Money" },
+    { property: "og:site_name", content: "Zaimu" },
+    {
+      property: "og:description",
+      content:
+        "Zaimu is the easiest way to track your money, take control of your finances and save to achieve your dreams.",
+    },
+    { name: "twitter:card", content: "summary_large_image" },
+    { property: "twitter:url", content: "https://zaimu-finance.pages.dev/" },
+    { name: "twitter:title", content: "Zaimu - Manage your Money" },
+    {
+      name: "twitter:description",
+      content:
+        "Zaimu is the easiest way to track your money, take control of your finances and save to achieve your dreams.",
+    },
+  ];
+};
+
 export default function ActionsShortcuts() {
   const [shortcuts, setShortcuts] = useState<Shortcut[]>();
   const [show, setShow] = useState<boolean>(false);
-  // const [showDelete, setShowDelete] = useState<boolean>(false);
-  // const [id, setId] = useState<string>("");
+  const [showDelete, setShowDelete] = useState<boolean>(false);
+  const [id, setId] = useState<string>("");
 
   const handleGetShortcuts = async () => {
     const data = await getShortcuts();
@@ -40,12 +71,12 @@ export default function ActionsShortcuts() {
     return handleGetShortcuts();
   };
 
-  // const handleDeleteShortcut = async(id:string)=>{
-  //   await deleteShortcut(id)
-  //   handleGetShortcuts()
+  const handleDeleteShortcut = async (id: string) => {
+    await deleteShortcut(id);
+    handleGetShortcuts();
 
-  //   return setShow(false)
-  // }
+    return setShow(false);
+  };
 
   const handleCreateTransaction = async (
     type: string,
@@ -118,12 +149,25 @@ export default function ActionsShortcuts() {
         <ul className="h-full grid grid-cols-5 gap-4">
           {shortcuts.map((data, index) => {
             return (
-              <li
+              <motion.li
                 key={index}
-                className="bg-white shadow-gray-1 rounded-2xl overflow-hidden h-fit flex flex-col gap-2"
+                className="bg-white shadow-gray-1 rounded-2xl overflow-hidden h-fit flex flex-col gap-2 relative group"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    delay: index * 0.03,
+                    duration: 0.6,
+                    type: "spring",
+                    bounce: 0.5,
+                  },
+                }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
               >
                 <div
-                  className="flex w-full h-8"
+                  className="flex w-full h-4"
                   style={{ backgroundColor: data.category.color }}
                 ></div>
 
@@ -175,7 +219,18 @@ export default function ActionsShortcuts() {
                     Add {data.type === "income" ? "income" : "expense"}
                   </motion.button>
                 </div>
-              </li>
+
+                <div className="absolute flex opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto w-full h-2/3 bg-linear-to-t from-0% to-100% from-black/0 to-black/30 backdrop-blur-[1px] inset-0 items-start justify-center py-4 transition-all ease-in-out duration-300 -z-0">
+                  <TrashButton
+                    w="w-5"
+                    h="h-5"
+                    action={() => {
+                      setShowDelete(true);
+                      setId(data._id);
+                    }}
+                  />
+                </div>
+              </motion.li>
             );
           })}
         </ul>
@@ -192,15 +247,15 @@ export default function ActionsShortcuts() {
         close={() => setShow(false)}
       />
 
-      {/* <DeleteModal
-    open={showDelete}
-    target="Transaction"
-    getAction={() => {
-      handleDeleteTransaction(id);
-      setShowDelete(false);
-    }}
-    close={() => setShowDelete(false)}
-  /> */}
+      <DeleteModal
+        open={showDelete}
+        target="Transaction"
+        getAction={() => {
+          handleDeleteShortcut(id);
+          setShowDelete(false);
+        }}
+        close={() => setShowDelete(false)}
+      />
     </section>
   );
 }

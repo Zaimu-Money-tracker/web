@@ -25,7 +25,7 @@ export default function DeleteModal({
       {show && (
         <motion.dialog
           id="entity-dialog"
-          className="flex fixed top-0 w-full h-screen bg-transparent items-center justify-center z-10"
+          className="flex fixed top-0 w-full h-screen bg-transparent items-center justify-center z-50"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}

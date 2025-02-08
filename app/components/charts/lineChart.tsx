@@ -66,8 +66,8 @@ export default function LineChart() {
             0,
             chartArea.bottom
           );
-          gradient.addColorStop(0.5, "#ff8d3559");
-          gradient.addColorStop(1, "#ffffff00");
+          gradient.addColorStop(0.2, "#ff8d3559");
+          gradient.addColorStop(1, "#ffca3500");
           return gradient;
         },
         borderColor: "#ff8d35",

@@ -109,7 +109,7 @@ export default function Transactions() {
   if (!transactions) return <>There&apos;s no transactions</>;
 
   return (
-    <section className="flex flex-col gap-6 h-full mb-6">
+    <section className="flex flex-col gap-4 h-full mb-6">
       <motion.span
         className="font-bold text-neutral-700 text-2xl"
         initial={{ opacity: 0 }}
@@ -123,7 +123,7 @@ export default function Transactions() {
       {transactions.length === 0 ? (
         <NothingHere />
       ) : (
-        <ul className="flex flex-col gap-3 h-full">
+        <ul className="flex flex-col gap-3 h-full overflow-y-scroll overflow-x-hidden mini-scroll-bar max-h-160 p-2 border-2 border-neutral-100 rounded-2xl">
           {transactions.map((data, index) => {
             return (
               <TransactionItem
