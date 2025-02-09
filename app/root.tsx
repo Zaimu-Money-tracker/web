@@ -23,20 +23,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
       "faviconDark"
     ) as HTMLLinkElement;
 
-    if (!faviconLight || !faviconDark) return;
-
-    const handleFocus = () => {
-      faviconLight.href = "favicon-white.ico";
-      faviconDark.href = "favicon-black.ico";
+    const handleShow = () => {
+      if (document.hidden) {
+        faviconLight.href = "/favicon-white-sad.ico";
+        faviconDark.href = "/favicon-black-sad.ico";
+      } else {
+        faviconLight.href = "/favicon-white.ico";
+        faviconDark.href = "/favicon-black.ico";
+      }
     };
 
-    const handleBlur = () => {
-      faviconLight.href = "favicon-white-sad.ico";
-      faviconDark.href = "favicon-black-sad.ico";
-    };
-
-    window.addEventListener("focus", handleFocus);
-    window.addEventListener("blur", handleBlur);
+    window.addEventListener("visibilitychange", handleShow);
   });
 
   return (
@@ -50,7 +47,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <link
           id="faviconLight"
           rel="shortcut icon"
-          href="favicon-white.ico"
+          href="/favicon-white.ico"
           media="(prefers-color-scheme: dark)"
           type="image/ico"
         />
