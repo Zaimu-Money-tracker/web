@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import BasicCard from "../cards/basicCard";
+import BasicCard from "./basicCard";
 import { Link } from "@remix-run/react";
 import { path } from "~/data/paths/paths.data";
 import { useEffect, useState } from "react";

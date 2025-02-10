@@ -3,7 +3,7 @@ import Transaction from "~/interfaces/entities/transaction.interface";
 import { getExpenses } from "~/services/zaimu/entities/transactions";
 import FormatNumber from "~/utils/formatNumber";
 import CircularProgress from "../svg/circularProgress";
-import SmallCard from "../cards/smallCard";
+import SmallCard from "./smallCard";
 
 export default function ExpensesCard({ incomes }: { incomes: number }) {
   const [transactions, setTransactions] = useState<Transaction[]>();

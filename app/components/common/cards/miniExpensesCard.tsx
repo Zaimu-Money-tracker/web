@@ -1,25 +1,25 @@
 import { motion } from "motion/react";
+import CardVariant from "./cardVariant";
 import { Link } from "@remix-run/react";
 import { path } from "~/data/paths/paths.data";
 import { useEffect, useState } from "react";
 import Transaction from "~/interfaces/entities/transaction.interface";
 import {
   deleteTransaction,
-  getExpenses,
+  getIncomes,
 } from "~/services/zaimu/entities/transactions";
-import TransactionItem from "./transaction";
+import TransactionItem from "../zaimu/transaction";
 import DeleteModal from "~/components/modal/deleteModal";
-import CardVariant from "../cards/cardVariant";
 
-export default function MiniIncomesCard() {
-  const [expenses, setExpenses] = useState<Transaction[]>();
+export default function MiniExpensesCard() {
+  const [incomes, setIncomes] = useState<Transaction[]>();
   const [showDelete, setShowDelete] = useState<boolean>(false);
   const [id, setId] = useState<string>("");
 
   const handleGetExpenses = async () => {
-    const data = await getExpenses();
+    const data = await getIncomes();
 
-    return setExpenses(data);
+    return setIncomes(data);
   };
 
   const handleDeleteTransaction = async (id: string) => {
@@ -32,7 +32,7 @@ export default function MiniIncomesCard() {
     handleGetExpenses();
   }, []);
 
-  if (!expenses) return <></>;
+  if (!incomes) return <></>;
 
   return (
     <CardVariant>
@@ -46,14 +46,14 @@ export default function MiniIncomesCard() {
         <span>Last incomes</span>
         <Link
           className="text-primary font-semibold text-lg"
-          to={path.app.finances.incomes}
+          to={path.app.finances.expenses}
         >
           View all
         </Link>
       </motion.header>
 
       <ul className="flex flex-col gap-4">
-        {expenses.slice(0, 3).map((data, index) => {
+        {incomes.slice(0, 3).map((data, index) => {
           return (
             <TransactionItem
               key={index}
