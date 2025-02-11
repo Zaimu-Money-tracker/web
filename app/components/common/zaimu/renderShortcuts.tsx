@@ -80,10 +80,7 @@ export default function RenderShortcuts() {
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
               >
-                <div
-                  className="flex w-full h-4"
-                  style={{ backgroundColor: data.category.color }}
-                ></div>
+                <div className="flex w-full h-4 bg-linear-to-r from-primary/70 to-secondary/70"></div>
 
                 <div className="flex flex-col gap-8 p-4 pt-1">
                   <div className="flex flex-col gap-2">
@@ -106,9 +103,21 @@ export default function RenderShortcuts() {
                     <div
                       className={`flex gap-1 bg-neutral-200/80 w-fit py-0.25 px-2 rounded-full items-center justify-center`}
                     >
-                      <span className="text-neutral-700 font-medium text-sm">
-                        {data.category ? data.category.name : "No category"}
-                      </span>
+                      {data.category ? (
+                        <>
+                          <div
+                            className="w-3.5 h-3.5 rounded-full"
+                            style={{ backgroundColor: data.category.color }}
+                          />
+                          <span className="text-neutral-700 font-medium text-sm">
+                            {data.category.name}
+                          </span>
+                        </>
+                      ) : (
+                        <span className="text-neutral-700 font-medium text-sm px-2">
+                          No category
+                        </span>
+                      )}
                     </div>
                   </div>
 

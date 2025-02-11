@@ -38,6 +38,14 @@ html {
   @apply bg-neutral-50 font-glory;
 }
 
+body::-webkit-scrollbar {
+  @apply w-1;
+}
+
+body::-webkit-scrollbar-thumb {
+  @apply w-1 bg-neutral-400/70 rounded-full;
+}
+
 #mainContainer {
   @apply grid min-h-dvh;
 

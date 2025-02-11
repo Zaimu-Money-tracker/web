@@ -12,7 +12,7 @@ import { path } from "~/data/paths/paths.data";
 export default function SideBar() {
   const location = useLocation();
   return (
-    <div className="flex h-screen items-center justify-center">
+    <div className="flex h-screen items-center justify-center fixed">
       <nav className="flex flex-col gap-4 bg-gray-1/65 w-fit h-[calc(100%_-_margin)] self-center m-4 py-6 px-4 rounded-2xl">
         <div className="w-max">
           <Link
