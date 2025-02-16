@@ -3,16 +3,19 @@ import FormatNumber from "~/utils/formatNumber";
 import { motion } from "motion/react";
 import TrashButton from "../buttons/trashButton";
 import Transaction from "~/interfaces/entities/transaction.interface";
+import EditButton from "../buttons/editButton";
 
 export default function TransactionItem({
   transaction,
   delay,
   showDelete,
+  showUpdate,
   searchId,
 }: {
   transaction: Transaction;
   delay: number;
   showDelete: (state: boolean) => void;
+  showUpdate: (state: boolean) => void;
   searchId: (id: string) => void;
 }) {
   const createdAt = new Date(transaction.createdAt);
@@ -81,7 +84,15 @@ export default function TransactionItem({
         </span>
       )}
 
-      <div className="absolute flex opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto w-full h-full bg-linear-to-r from-black/5 to-black/20 backdrop-blur-[0.5px] inset-0 items-center justify-end px-4 transition-all ease-in-out duration-300">
+      <div className="absolute flex opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto w-full h-full bg-linear-to-r from-black/5 to-black/20 backdrop-blur-[0.5px] inset-0 items-center justify-end px-4 transition-all ease-in-out duration-300 gap-2">
+        <EditButton
+          w="w-5"
+          h="h-5"
+          action={() => {
+            showUpdate(true);
+            searchId(transaction._id);
+          }}
+        />
         <TrashButton
           w="w-5"
           h="h-5"

@@ -114,7 +114,7 @@ export default function SelectTypeInput({
         type="hidden"
         name={name}
         value={selected?.type ?? ""}
-        defaultValue={defaultValue}
+        defaultValue={defaultValue?.toLowerCase()}
         required={required}
       />
     </div>

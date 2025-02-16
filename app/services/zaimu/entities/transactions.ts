@@ -47,3 +47,26 @@ export async function deleteTransaction(id: string) {
   const response = await api.delete(`/transactions/item/${id}`);
   return response.data;
 }
+
+export async function updateTransaction(
+  id: string,
+  data: {
+    [key: string]: FormDataEntryValue;
+  }
+) {
+  const amount = parseFloat(
+    data.amount.toString().replaceAll(",", "").replace("$", "")
+  );
+
+  const payload: TransactionPayload = {
+    type: data.type.toString().toLowerCase(),
+    amount: amount,
+    name: data.name.toString(),
+    recurring: false,
+  };
+
+  if (data.category) payload.category = data.category.toString();
+
+  const response = await api.put(`/transactions/item/${id}`, payload);
+  return response.data;
+}

@@ -238,18 +238,6 @@ export default function Home() {
 
         <RenderShortcuts />
       </section>
-
-      {/* <section className="flex flex-col gap-4 w-full h-fit pb-10">
-        <motion.span
-          className="font-bold text-neutral-700 text-2xl"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          Achievements
-        </motion.span>
-      </section> */}
     </>
   );
 }
