@@ -5,11 +5,13 @@ export default function EntitiesForm({
   title,
   description,
   cancelAction,
+  update,
   inputs,
 }: {
   title: string;
   description: string;
   cancelAction?: () => void;
+  update?: boolean;
   inputs: React.ReactNode[];
 }) {
   return (
@@ -34,7 +36,7 @@ export default function EntitiesForm({
       </fieldset>
 
       <div className="flex gap-6">
-        <Button text="Create" />
+        <Button text={update ? "Update" : "Create"} />
         <RedButton
           text="Cancel"
           action={cancelAction}

@@ -177,6 +177,7 @@ export default function Transactions() {
         open={showUpdate}
         submitAction={handleUpdateTransaction}
         close={() => setShowUpdate(false)}
+        update
       />
     </section>
   );

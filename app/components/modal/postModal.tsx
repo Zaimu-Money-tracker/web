@@ -8,6 +8,7 @@ export default function PostModal({
   inputs,
   title,
   description,
+  update,
   close,
   submitAction,
 }: {
@@ -15,6 +16,7 @@ export default function PostModal({
   inputs: ReactNode[];
   title: string;
   description: string;
+  update?: boolean;
   close: () => void;
   submitAction: (data: { [key: string]: FormDataEntryValue }) => void;
 }) {
@@ -48,6 +50,7 @@ export default function PostModal({
               title={title}
               description={description}
               inputs={inputs}
+              update={update}
               cancelAction={() => {
                 setShow(false);
                 close();

@@ -10,6 +10,7 @@ import {
   createTransaction,
   deleteTransaction,
   getIncomes,
+  updateTransaction,
 } from "~/services/zaimu/entities/transactions";
 import SelectTypeInput from "~/components/form/SelectTypeInput";
 import AmountInput from "~/components/form/amountInput";
@@ -55,6 +56,7 @@ export default function OverviewIncomes() {
   const [transactions, setTransactions] = useState<Transaction[]>();
   const [show, setShow] = useState<boolean>(false);
   const [showDelete, setShowDelete] = useState<boolean>(false);
+  const [showUpdate, setShowUpdate] = useState<boolean>(false);
   const [id, setId] = useState<string>("");
 
   const [incomes, setIncomes] = useState<number>(0);
@@ -82,6 +84,15 @@ export default function OverviewIncomes() {
 
     handleGetIncomes();
     return setShowDelete(false);
+  };
+
+  const handleUpdateTransaction = async (data: {
+    [key: string]: FormDataEntryValue;
+  }) => {
+    await updateTransaction(id, data);
+    handleGetIncomes();
+
+    return setShowUpdate(false);
   };
 
   useEffect(() => {
@@ -120,6 +131,7 @@ export default function OverviewIncomes() {
         name="type"
         options={TransactionTypes}
         required
+        defaultValue="Income"
       />
     </div>,
 
@@ -159,6 +171,7 @@ export default function OverviewIncomes() {
                     transaction={data}
                     delay={index}
                     showDelete={(state) => setShowDelete(state)}
+                    showUpdate={(state) => setShowUpdate(state)}
                     searchId={(id) => setId(id)}
                   />
                 );
@@ -304,6 +317,16 @@ export default function OverviewIncomes() {
           setShowDelete(false);
         }}
         close={() => setShowDelete(false)}
+      />
+
+      <PostModal
+        title="Update Transaction"
+        description="A new expense? A new income? Keep everything tracked!"
+        inputs={categoriesInputs}
+        open={showUpdate}
+        submitAction={handleUpdateTransaction}
+        close={() => setShowUpdate(false)}
+        update
       />
     </section>
   );

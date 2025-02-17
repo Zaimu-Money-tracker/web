@@ -1,6 +1,7 @@
 import { MetaFunction } from "@remix-run/react";
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
+import EditButton from "~/components/common/buttons/editButton";
 import TrashButton from "~/components/common/buttons/trashButton";
 import AddButton from "~/components/common/zaimu/addButton";
 import NothingHere from "~/components/common/zaimu/NothingHere";
@@ -17,6 +18,7 @@ import {
   createShortcut,
   deleteShortcut,
   getShortcuts,
+  updateShortcut,
 } from "~/services/zaimu/entities/shortcuts";
 import { createTransactionWithPayload } from "~/services/zaimu/entities/transactions";
 import FormatNumber from "~/utils/formatNumber";
@@ -53,6 +55,7 @@ export default function ActionsShortcuts() {
   const [shortcuts, setShortcuts] = useState<Shortcut[]>();
   const [show, setShow] = useState<boolean>(false);
   const [showDelete, setShowDelete] = useState<boolean>(false);
+  const [showUpdate, setShowUpdate] = useState<boolean>(false);
   const [id, setId] = useState<string>("");
 
   const handleGetShortcuts = async () => {
@@ -76,6 +79,15 @@ export default function ActionsShortcuts() {
     handleGetShortcuts();
 
     return setShow(false);
+  };
+
+  const handleUpdateShortcut = async (data: {
+    [key: string]: FormDataEntryValue;
+  }) => {
+    await updateShortcut(id, data);
+    handleGetShortcuts();
+
+    return setShowUpdate(false);
   };
 
   const handleCreateTransaction = async (
@@ -229,7 +241,15 @@ export default function ActionsShortcuts() {
                   </motion.button>
                 </div>
 
-                <div className="absolute flex opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto w-full h-2/3 bg-linear-to-t from-0% to-100% from-black/0 to-black/30 backdrop-blur-[1px] inset-0 items-start justify-center py-4 transition-all ease-in-out duration-300 -z-0">
+                <div className="absolute flex opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto w-full h-2/3 bg-linear-to-t from-0% to-100% from-black/0 to-black/30 backdrop-blur-[1px] inset-0 items-start justify-center py-4 transition-all ease-in-out duration-300 -z-0 gap-2">
+                  <EditButton
+                    w="w-5"
+                    h="h-5"
+                    action={() => {
+                      setShowUpdate(true);
+                      setId(data._id);
+                    }}
+                  />
                   <TrashButton
                     w="w-5"
                     h="h-5"
@@ -249,7 +269,7 @@ export default function ActionsShortcuts() {
 
       <PostModal
         title="New Shortcut"
-        description="Faster way to add transactions,"
+        description="Faster way to add transactions."
         inputs={shortcutInputs}
         open={show}
         submitAction={handleCreateShortcut}
@@ -264,6 +284,16 @@ export default function ActionsShortcuts() {
           setShowDelete(false);
         }}
         close={() => setShowDelete(false)}
+      />
+
+      <PostModal
+        title="Update Shortcut"
+        description="Faster way to add transactions."
+        inputs={shortcutInputs}
+        open={showUpdate}
+        submitAction={handleUpdateShortcut}
+        close={() => setShowUpdate(false)}
+        update
       />
     </section>
   );
