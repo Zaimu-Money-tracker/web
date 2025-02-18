@@ -2,19 +2,28 @@ import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import TrashButton from "~/components/common/buttons/trashButton";
 import NothingHere from "~/components/common/zaimu/NothingHere";
+import AmountInput from "~/components/form/amountInput";
+import CategoriesInput from "~/components/form/categoriesInput";
+import Input from "~/components/form/input";
+import SelectTypeInput from "~/components/form/SelectTypeInput";
 import DeleteModal from "~/components/modal/deleteModal";
+import PostModal from "~/components/modal/postModal";
+import { TransactionTypes } from "~/data/inputs/TransactionTypes";
 import Shortcut from "~/interfaces/entities/shortcut.interface";
 import TransactionPayload from "~/interfaces/payloads/entities/transactionPayload.interface";
 import {
   deleteShortcut,
   getShortcuts,
+  updateShortcut,
 } from "~/services/zaimu/entities/shortcuts";
 import { createTransactionWithPayload } from "~/services/zaimu/entities/transactions";
 import FormatNumber from "~/utils/formatNumber";
+import EditButton from "../buttons/editButton";
 
 export default function RenderShortcuts() {
   const [shortcuts, setShortcuts] = useState<Shortcut[]>();
   const [showDelete, setShowDelete] = useState<boolean>(false);
+  const [showUpdate, setShowUpdate] = useState<boolean>(false);
   const [id, setId] = useState<string>("");
 
   const handleGetShortcuts = async () => {
@@ -26,6 +35,15 @@ export default function RenderShortcuts() {
   const handleDeleteShortcut = async (id: string) => {
     await deleteShortcut(id);
     return handleGetShortcuts();
+  };
+
+  const handleUpdateShortcut = async (data: {
+    [key: string]: FormDataEntryValue;
+  }) => {
+    await updateShortcut(id, data);
+    handleGetShortcuts();
+
+    return setShowUpdate(false);
   };
 
   const handleCreateTransaction = async (
@@ -52,6 +70,32 @@ export default function RenderShortcuts() {
   useEffect(() => {
     handleGetShortcuts();
   }, []);
+
+  const shortcutInputs = [
+    <div key={"info"} className="flex items-center justify-center gap-4">
+      <Input
+        key={"name"}
+        placeholder="Shortcut name"
+        type="text"
+        name="name"
+        required
+      />
+      <SelectTypeInput
+        key={"type"}
+        name="type"
+        options={TransactionTypes}
+        required
+      />
+    </div>,
+
+    <AmountInput
+      key={"amount"}
+      placeholder="Shortcut amount"
+      name="amount"
+      required
+    />,
+    <CategoriesInput key={"category"} name="category" required />,
+  ];
 
   if (!shortcuts) return <></>;
 
@@ -143,7 +187,15 @@ export default function RenderShortcuts() {
                   </motion.button>
                 </div>
 
-                <div className="absolute flex opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto w-full h-2/3 bg-linear-to-t from-0% to-100% from-black/0 to-black/30 backdrop-blur-[1px] inset-0 items-start justify-center py-4 transition-all ease-in-out duration-300 -z-0">
+                <div className="absolute flex opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto w-full h-2/3 bg-linear-to-t from-0% to-100% from-black/0 to-black/30 backdrop-blur-[1px] inset-0 items-start justify-center py-4 transition-all ease-in-out duration-300 -z-0 gap-2">
+                  <EditButton
+                    w="w-5"
+                    h="h-5"
+                    action={() => {
+                      setShowUpdate(true);
+                      setId(data._id);
+                    }}
+                  />
                   <TrashButton
                     w="w-5"
                     h="h-5"
@@ -167,6 +219,16 @@ export default function RenderShortcuts() {
           setShowDelete(false);
         }}
         close={() => setShowDelete(false)}
+      />
+
+      <PostModal
+        title="Update Shortcut"
+        description="Faster way to add transactions."
+        inputs={shortcutInputs}
+        open={showUpdate}
+        submitAction={handleUpdateShortcut}
+        close={() => setShowUpdate(false)}
+        update
       />
     </>
   );
