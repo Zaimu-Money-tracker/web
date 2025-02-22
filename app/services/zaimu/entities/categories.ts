@@ -22,3 +22,18 @@ export async function deleteCategory(id: string) {
   const response = await api.delete(`/categories/${id}`);
   return response.data;
 }
+
+export async function updateCategory(
+  id: string,
+  data: {
+    [key: string]: FormDataEntryValue;
+  }
+) {
+  const payload: Category = {
+    name: data.name.toString(),
+    color: data.color.toString(),
+  };
+
+  const response = await api.put(`/categories/${id}`, payload);
+  return response.data;
+}
