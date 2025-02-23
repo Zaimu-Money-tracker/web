@@ -15,6 +15,7 @@ import {
   createCategory,
   deleteCategory,
   getCategories,
+  updateCategory,
 } from "~/services/zaimu/entities/categories";
 import Transaction from "~/interfaces/entities/transaction.interface";
 import {
@@ -23,6 +24,7 @@ import {
 } from "~/services/zaimu/entities/transactions";
 import FormatNumber from "~/utils/formatNumber";
 import DoughnutChart from "~/components/charts/doughnutChart";
+import EditButton from "~/components/common/buttons/editButton";
 
 export const meta: MetaFunction = () => {
   return [
@@ -58,6 +60,7 @@ export default function OverviewCategories() {
   const [incomes, setIncomes] = useState<Transaction[]>();
   const [show, setShow] = useState<boolean>(false);
   const [showDelete, setShowDelete] = useState<boolean>(false);
+  const [showUpdate, setShowUpdate] = useState<boolean>(false);
   const [id, setId] = useState<string | undefined>("");
 
   const [total, setTotal] = useState<{ [key: string]: number }>();
@@ -92,6 +95,17 @@ export default function OverviewCategories() {
     close();
 
     return handleGetCategories();
+  };
+
+  const handleUpdateCategory = async (data: {
+    [key: string]: FormDataEntryValue;
+  }) => {
+    if (!id) return;
+
+    await updateCategory(id, data);
+    handleGetCategories();
+
+    return setShowUpdate(false);
   };
 
   useEffect(() => {
@@ -215,7 +229,15 @@ export default function OverviewCategories() {
                       : " ---"}
                   </span>
 
-                  <div className="absolute flex opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto w-full h-full bg-linear-to-r from-black/5 to-black/20 backdrop-blur-[0.5px] inset-0 items-center justify-end px-4 transition-all ease-in-out duration-300">
+                  <div className="absolute flex opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto w-full h-full bg-linear-to-r from-black/5 to-black/20 backdrop-blur-[0.5px] inset-0 items-center justify-end px-1 transition-all ease-in-out duration-300 gap-2">
+                    <EditButton
+                      w="w-5"
+                      h="h-5"
+                      action={() => {
+                        setShowUpdate(true);
+                        setId(category._id);
+                      }}
+                    />
                     <TrashButton
                       w="w-4"
                       h="h-4"
@@ -270,6 +292,16 @@ export default function OverviewCategories() {
           setShowDelete(false);
         }}
         close={() => setShowDelete(false)}
+      />
+
+      <PostModal
+        title="Update Category"
+        description="Keep your transactions in order with categories."
+        inputs={categoriesInputs}
+        open={showUpdate}
+        submitAction={handleUpdateCategory}
+        close={() => setShowUpdate(false)}
+        update
       />
     </section>
   );
