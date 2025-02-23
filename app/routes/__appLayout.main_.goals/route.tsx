@@ -9,12 +9,14 @@ import {
   createGoal,
   deleteGoal,
   getGoals,
+  updateGoal,
 } from "~/services/zaimu/entities/goals";
 import PostModal from "~/components/modal/postModal";
 import Input from "~/components/form/input";
 import AmountInput from "~/components/form/amountInput";
 import TrashButton from "~/components/common/buttons/trashButton";
 import DeleteModal from "~/components/modal/deleteModal";
+import EditButton from "~/components/common/buttons/editButton";
 
 export const meta: MetaFunction = () => {
   return [
@@ -48,6 +50,7 @@ export default function Goals() {
   const [goals, setGoals] = useState<Goal[]>();
   const [show, setShow] = useState<boolean>(false);
   const [showDelete, setShowDelete] = useState<boolean>(false);
+  const [showUpdate, setShowUpdate] = useState<boolean>(false);
   const [id, setId] = useState<string>("");
 
   const handleGetGoals = async () => {
@@ -70,6 +73,15 @@ export default function Goals() {
     handleGetGoals();
 
     return setShowDelete(false);
+  };
+
+  const handleUpdateGoal = async (data: {
+    [key: string]: FormDataEntryValue;
+  }) => {
+    await updateGoal(id, data);
+    handleGetGoals();
+
+    return setShowUpdate(false);
   };
 
   useEffect(() => {
@@ -168,7 +180,15 @@ export default function Goals() {
                   </div>
                 </div>
 
-                <div className="absolute flex opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto w-full h-full bg-linear-to-r from-black/5 to-black/20 backdrop-blur-[1px] inset-0 items-center justify-end px-4 transition-all ease-in-out duration-300">
+                <div className="absolute flex flex-col opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto w-full h-full bg-linear-to-r from-black/5 to-black/20 backdrop-blur-[1px] inset-0 items-end justify-center px-4 transition-all ease-in-out duration-300 gap-2">
+                  <EditButton
+                    w="w-5"
+                    h="h-5"
+                    action={() => {
+                      setShowUpdate(true);
+                      setId(data._id);
+                    }}
+                  />
                   <TrashButton
                     w="w-5"
                     h="h-5"
@@ -188,7 +208,7 @@ export default function Goals() {
 
       <PostModal
         title="New Transaction"
-        description="A new expense? A new income? Keep everything tracked!"
+        description="Save money and reach your goals!"
         inputs={goalsInputs}
         open={show}
         submitAction={handleCreateGoal}
@@ -203,6 +223,16 @@ export default function Goals() {
           setShowDelete(false);
         }}
         close={() => setShowDelete(false)}
+      />
+
+      <PostModal
+        title="Update Goal"
+        description="Save money and reach your goals!"
+        inputs={goalsInputs}
+        open={showUpdate}
+        submitAction={handleUpdateGoal}
+        close={() => setShowUpdate(false)}
+        update
       />
     </section>
   );
