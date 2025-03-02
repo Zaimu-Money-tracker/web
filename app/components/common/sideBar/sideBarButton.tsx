@@ -1,27 +1,21 @@
-import { Link } from "@remix-run/react";
-
 export default function SideBarButton({
   text,
-  link,
   icon,
-  isActive,
+  setActive,
 }: {
   text: string;
-  link: string;
   icon: React.ReactNode;
-  isActive: boolean;
+  setActive: () => void;
 }) {
   return (
     <li>
-      <Link
-        className={`flex gap-2 items-center text-lg px-2 py-1 text-neutral-600 hover:text-neutral-700 hover:bg-gray-1 ${
-          isActive ? "bg-gray-1" : ""
-        } font-semibold rounded-lg min-w-44 transition-all ease-in-out duration-200`}
-        to={link}
+      <button
+        className={`flex gap-2 items-center cursor-pointer text-lg px-2 py-1 text-neutral-600 hover:text-neutral-700 hover:bg-gray-1 font-semibold rounded-lg min-w-44 transition-all ease-in-out duration-200`}
+        onClick={() => setActive()}
       >
         {icon}
         <span>{text}</span>
-      </Link>
+      </button>
     </li>
   );
 }

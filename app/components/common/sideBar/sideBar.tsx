@@ -1,5 +1,5 @@
 import { Link, useLocation } from "@remix-run/react";
-import SideBarButton from "./sideBarButton";
+import SideBarLink from "./sideBarLink";
 import { FiHome } from "react-icons/fi";
 import { MdOutlineInbox } from "react-icons/md";
 import { LuCreditCard, LuGoal, LuGrid2X2 } from "react-icons/lu";
@@ -8,12 +8,23 @@ import { FaHeart } from "react-icons/fa";
 import { PiGearSixBold } from "react-icons/pi";
 import { BiHelpCircle } from "react-icons/bi";
 import { path } from "~/data/paths/paths.data";
+import SideBarButton from "./sideBarButton";
+import { useState } from "react";
+import Inbox from "./inbox";
+import { AnimatePresence, motion } from "motion/react";
 
 export default function SideBar() {
   const location = useLocation();
+
+  const [isActive, setIsActive] = useState<boolean>(false);
+
   return (
-    <div className="flex h-screen items-center justify-center fixed">
-      <nav className="flex flex-col gap-4 bg-gray-1/65 w-fit h-[calc(100%_-_margin)] self-center m-4 py-6 px-4 rounded-2xl">
+    <div className="flex h-screen items-center justify-center fixed z-50">
+      <nav
+        className={`flex flex-col gap-4 bg-gray-1/65 w-fit h-[calc(100%_-_margin)] my-96 self-center py-6 px-4 transition-all ease-in-out duration-200 ${
+          !isActive ? "rounded-2xl m-4" : "rounded-l-2xl ml-4"
+        }`}
+      >
         <div className="w-max">
           <Link
             className="flex gap-3 items-center"
@@ -35,7 +46,7 @@ export default function SideBar() {
 
         <div className="mb-54 mt-8">
           <ul className="flex flex-col gap-2">
-            <SideBarButton
+            <SideBarLink
               text="Home"
               icon={<FiHome className="w-5 h-5" />}
               link={path.app.home}
@@ -43,29 +54,28 @@ export default function SideBar() {
             />
             <SideBarButton
               text="Inbox"
+              setActive={() => setIsActive(!isActive)}
               icon={<MdOutlineInbox className="w-5 h-5" />}
-              link={""}
-              isActive={false}
             />
-            <SideBarButton
+            <SideBarLink
               text="Overview"
               icon={<LuGrid2X2 className="w-5 h-5" />}
               link={path.app.overview.general}
               isActive={location.pathname.includes("/main/overview")}
             />
-            <SideBarButton
+            <SideBarLink
               text="Finances"
               icon={<LuCreditCard className="w-5 h-5" />}
               link={path.app.finances.transactions}
               isActive={location.pathname.includes("/main/finances")}
             />
-            <SideBarButton
+            <SideBarLink
               text="Actions"
               icon={<TiFlashOutline className="w-5 h-5" />}
               link={path.app.actions.shortcuts}
               isActive={location.pathname.includes("/main/actions")}
             />
-            <SideBarButton
+            <SideBarLink
               text="Goals"
               icon={<LuGoal className="w-5 h-5" />}
               link={path.app.goals}
@@ -78,19 +88,19 @@ export default function SideBar() {
 
         <div>
           <ul className="flex flex-col gap-2">
-            <SideBarButton
+            <SideBarLink
               text="Plan"
               icon={<FaHeart className="w-4.5 h-4.5" />}
               link={path.pricing}
               isActive={false}
             />
-            <SideBarButton
+            <SideBarLink
               text="Help"
               icon={<BiHelpCircle className="w-5 h-5" />}
               link=""
               isActive={false}
             />
-            <SideBarButton
+            <SideBarLink
               text="Settings"
               icon={<PiGearSixBold className="w-5 h-5 " />}
               link={path.app.settings}
@@ -99,6 +109,17 @@ export default function SideBar() {
           </ul>
         </div>
       </nav>
+      <AnimatePresence>
+        {isActive && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <Inbox />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
