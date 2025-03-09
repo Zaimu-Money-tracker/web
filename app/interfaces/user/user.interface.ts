@@ -19,6 +19,7 @@ export default interface User {
     notifications: {
       email: boolean;
       push?: boolean;
+      desktop?: boolean;
       whatsApp: boolean;
       zaimuUpdates?: boolean;
       goals?: boolean;

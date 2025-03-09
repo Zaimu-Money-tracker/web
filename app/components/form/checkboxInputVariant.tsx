@@ -10,10 +10,12 @@ export default function CheckboxInput({
   name: string;
   defaultValue?: boolean;
 }) {
-  const [checked, setChecked] = useState<boolean>(defaultValue ?? false);
+  const [checked, setChecked] = useState<boolean>(
+    defaultValue ? defaultValue : false
+  );
 
   return (
-    <label className="flex items-center gap-2 cursor-pointer w-fit">
+    <label className="flex flex-row-reverse items-center justify-between cursor-pointer w-full">
       <input
         className="peer hidden"
         type="checkbox"
