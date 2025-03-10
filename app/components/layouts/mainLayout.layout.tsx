@@ -9,7 +9,7 @@ export default function MainLayout({
   return (
     <div id="mainContainer">
       <Header />
-      <main>{children}</main>
+      <main className="mx-[10%]">{children}</main>
       <Footer />
     </div>
   );

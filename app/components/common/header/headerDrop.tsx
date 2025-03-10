@@ -21,7 +21,7 @@ export default function HeaderDrop({
 
   return (
     <li
-      className="group flex text-lg text-neutral-800/70 hover:text-neutral-700/100 items-center gap-1 transition-all ease-in-out duration-200 cursor-pointer px-2 py-0.5"
+      className="group flex text-lg bg-transparent text-neutral-800/70 hover:text-neutral-700/100 items-center gap-1 transition-all ease-in-out duration-200 cursor-pointer px-2 py-0.5"
       onMouseEnter={() => setVisible(true)}
       onMouseLeave={() => setVisible(false)}
     >
@@ -39,7 +39,7 @@ export default function HeaderDrop({
                 : index === 2
                 ? "after:left-[23%] after:w-[25%]"
                 : "after:left-[60%] after:w-[40%] left-24"
-            } absolute w-max flex p-2 bg-neutral-200/60 drop-down -left-4 top-[0px] mt-16 rounded-2xl border-2 border-neutral-200 cursor-default`}
+            } absolute w-max flex p-2 drop-down bg-neutral-100 -left-4 top-[0px] mt-16 rounded-2xl border-2 border-neutral-200 cursor-default`}
             variants={dropDownVariants}
             initial="initial"
             animate="animate"
