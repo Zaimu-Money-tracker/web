@@ -11,7 +11,7 @@ import { path } from "~/data/paths/paths.data";
 
 export default function Header() {
   return (
-    <header className="grid w-full fixed">
+    <header className="grid w-full fixed z-50">
       <div className="flex bg-gray-1/60 py-2 px-8 mx-[10%] mt-3 rounded-2xl items-center backdrop-blur-md">
         <nav className="w-full flex justify-between">
           <div className="flex gap-10">

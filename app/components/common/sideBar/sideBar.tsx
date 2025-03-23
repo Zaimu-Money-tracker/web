@@ -112,6 +112,7 @@ export default function SideBar() {
       <AnimatePresence>
         {isActive && (
           <motion.div
+            className="flex flex-col gap-4 w-80 h-[calc(100%_-_175px)] bg-neutral-400/50 backdrop-blur-md my-96 self-center mr-4 py-6 px-4 transition-all rounded-r-2xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

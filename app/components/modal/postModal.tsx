@@ -39,7 +39,7 @@ export default function PostModal({
       {show && (
         <motion.dialog
           id="entity-dialog"
-          className="flex fixed top-0 w-full h-screen bg-transparent items-center justify-center z-10"
+          className="flex fixed top-0 w-full h-screen bg-transparent items-center justify-center z-60"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
@@ -62,7 +62,7 @@ export default function PostModal({
 
       {show && (
         <motion.div
-          className="flex fixed top-0 left-0 w-full h-screen  bg-black/40 backdrop-blur-sm"
+          className="flex fixed top-0 left-0 w-full h-screen  bg-black/40 backdrop-blur-sm z-50"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

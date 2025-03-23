@@ -1,4 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
+import { RiScrollToBottomLine } from "react-icons/ri";
 import ButtonLink from "~/components/common/buttons/buttonLink";
 import { path } from "~/data/paths/paths.data";
 
@@ -33,7 +34,7 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   return (
     <>
-      <section className="grid h-screen items-center grid-flow-col gap-28">
+      <section className="grid h-screen items-center grid-flow-col gap-28 relative">
         <div className="flex flex-col gap-12 w-fit">
           <div className="flex flex-col gap-4">
             <h1 className="text-6xl font-black text-black">
@@ -54,6 +55,22 @@ export default function Index() {
               type="secondary"
             />
           </div>
+        </div>
+
+        <RiScrollToBottomLine className="w-8 h-8 absolute left-1/2 -translate-1/2 bottom-10 animate-bounce text-neutral-700" />
+      </section>
+
+      <section className="grid w-full justify-center my-28">
+        <div className="max-w-3xl flex flex-col gap-2">
+          <h2 className="text-5xl font-black text-black text-center">
+            Get a full breakdown
+          </h2>
+          <p className="text-lg font-semibold text-neutral-500 text-center">
+            Zaimu provides a complete analysis of your transactions. You&apos;ll
+            see percentages, values, and a lot of details about your expenses,
+            incomes, and savings. It even gives you tips on smart money
+            management.
+          </p>
         </div>
       </section>
     </>
