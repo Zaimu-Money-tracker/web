@@ -1,4 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
+import { useEffect, useRef } from "react";
 import { RiScrollToBottomLine } from "react-icons/ri";
 import ButtonLink from "~/components/common/buttons/buttonLink";
 import { path } from "~/data/paths/paths.data";
@@ -32,6 +33,37 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer) return;
+
+    let animationId: number;
+    let scrollPosition = 0;
+    const scrollSpeed = 0.8; // Slightly slower for smoother appearance
+
+    const scroll = () => {
+      if (!scrollContainer) return;
+
+      scrollPosition += scrollSpeed;
+
+      // Reset position when we've scrolled the width of one image
+      if (scrollPosition >= scrollContainer.children[0].clientWidth) {
+        scrollPosition = 0;
+      }
+
+      scrollContainer.style.transform = `translateX(${-scrollPosition}px)`;
+      animationId = requestAnimationFrame(scroll);
+    };
+
+    animationId = requestAnimationFrame(scroll);
+
+    return () => {
+      cancelAnimationFrame(animationId);
+    };
+  }, []);
+
   return (
     <>
       <section className="grid h-screen items-center grid-flow-col gap-28 relative">
@@ -73,7 +105,7 @@ export default function Index() {
           </p>
         </div>
 
-        <div className="flex w-full carousel relative overflow-hidden">
+        {/* <div className="flex w-full carousel relative overflow-hidden">
           <div className="flex w-full gap-4 carousel-anim">
             <img
               className="border-2 border-neutral-200 rounded-2xl"
@@ -111,6 +143,40 @@ export default function Index() {
               src="/images/zaimu-overview.webp"
               alt="Zaimu app overview section"
             />
+          </div>
+        </div> */}
+        <div className="w-full max-w-[1444px] mx-auto overflow-hidden py-4 carousel relative">
+          <div className="relative w-fit">
+            <div className="flex w-max" ref={scrollRef}>
+              {[...Array(2)].map((_, dupeIndex) => (
+                <div key={dupeIndex} className="flex">
+                  <div className="flex-shrink-0 px-2">
+                    <img
+                      src="/images/zaimu-finances.webp"
+                      width={500}
+                      alt="Zaimu app finances section"
+                      className="object-cover overflow-hidden rounded-md border-2 border-neutral-200"
+                    />
+                  </div>
+                  <div className="flex-shrink-0 px-2">
+                    <img
+                      src="/images/zaimu-main-menu.webp"
+                      width={500}
+                      alt="Zaimu app main menu section"
+                      className="object-cover overflow-hidden rounded-md border-2 border-neutral-200"
+                    />
+                  </div>
+                  <div className="flex-shrink-0 px-2">
+                    <img
+                      src="/images/zaimu-overview.webp"
+                      width={500}
+                      alt="Zaimu app overview section"
+                      className="object-cover overflow-hidden rounded-md border-2 border-neutral-200"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
