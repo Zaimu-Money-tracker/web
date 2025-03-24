@@ -68,3 +68,21 @@ body::-webkit-scrollbar-thumb {
 .mini-scroll-bar::-webkit-scrollbar-thumb {
   @apply w-0.75 bg-neutral-300/40 rounded-full;
 }
+
+.carousel::before {
+  @apply content-[''] bg-linear-to-r from-0% via-50% to-100% from-neutral-50 via-transparent to-neutral-50 absolute top-0 left-0 w-full h-full z-10;
+}
+
+.carousel-anim {
+  animation: carousel 20s linear infinite;
+}
+
+@keyframes carousel {
+  from {
+    transform: translateX(0%);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}

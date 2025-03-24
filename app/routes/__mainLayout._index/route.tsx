@@ -60,7 +60,7 @@ export default function Index() {
         <RiScrollToBottomLine className="w-8 h-8 absolute left-1/2 -translate-1/2 bottom-10 animate-bounce text-neutral-700" />
       </section>
 
-      <section className="grid w-full justify-center my-28">
+      <section className="flex flex-col w-full justify-center my-28 gap-28 items-center">
         <div className="max-w-3xl flex flex-col gap-2">
           <h2 className="text-5xl font-black text-black text-center">
             Get a full breakdown
@@ -71,6 +71,47 @@ export default function Index() {
             incomes, and savings. It even gives you tips on smart money
             management.
           </p>
+        </div>
+
+        <div className="flex w-full carousel relative overflow-hidden">
+          <div className="flex w-full gap-4 carousel-anim">
+            <img
+              className="border-2 border-neutral-200 rounded-2xl"
+              width={500}
+              src="/images/zaimu-finances.webp"
+              alt="Zaimu app finances section"
+            />
+            <img
+              className="border-2 border-neutral-200 rounded-2xl"
+              width={500}
+              src="/images/zaimu-main-menu.webp"
+              alt="Zaimu app main menu section"
+            />
+            <img
+              className="border-2 border-neutral-200 rounded-2xl"
+              width={500}
+              src="/images/zaimu-overview.webp"
+              alt="Zaimu app overview section"
+            />
+            <img
+              className="border-2 border-neutral-200 rounded-2xl"
+              width={500}
+              src="/images/zaimu-finances.webp"
+              alt="Zaimu app finances section"
+            />
+            <img
+              className="border-2 border-neutral-200 rounded-2xl"
+              width={500}
+              src="/images/zaimu-main-menu.webp"
+              alt="Zaimu app main menu section"
+            />
+            <img
+              className="border-2 border-neutral-200 rounded-2xl"
+              width={500}
+              src="/images/zaimu-overview.webp"
+              alt="Zaimu app overview section"
+            />
+          </div>
         </div>
       </section>
     </>
